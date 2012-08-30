@@ -21,3 +21,18 @@ CREATE TABLE 'TrainList'(
 	'R_Date' TEXT,
 	'Distance' INTEGER
 );
+
+CREATE TABLE 'Pinyin'(
+	'ID' INTEGER,
+	'Station' TEXT,
+	'Shortcode' TEXT,
+	'FullCode' TEXT,
+	'Province' TEXT,
+	'ProPinyin' TEXT,
+	'Call' INTEGER
+);
+
+CREATE VIEW ProvinceList AS
+SELECT DISTINCT Province,ProPinyin
+FROM Pinyin
+ORDER BY ProPinyin

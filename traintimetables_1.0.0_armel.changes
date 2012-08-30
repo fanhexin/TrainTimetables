@@ -1,0 +1,23 @@
+Format: 1.8
+Date: Sun, 19 Aug 2012 16:20:36 +0800
+Source: traintimetables
+Binary: traintimetables
+Architecture: armel
+Version: 1.0.0
+Distribution: unstable
+Urgency: low
+Maintainer: unknown <>
+Changed-By: unknown <>
+Description: 
+ traintimetables - <insert up to 60 chars description>
+Changes: 
+ traintimetables (1.0.0) unstable; urgency=low
+ .
+   * <Add change description here>
+Checksums-Sha1: 
+ e9fb40f6d6fd33b32673da23aea59203aa22b34e 1312164 traintimetables_1.0.0_armel.deb
+Checksums-Sha256: 
+ ba6f06827d7c0e09cdc73cfb8ba291b107797bb6588cb1cbf0eabebd59fd74f3 1312164 traintimetables_1.0.0_armel.deb
+Files: 
+ 886da47060f5cacabbd50cee1c553c20 1312164 user/other optional traintimetables_1.0.0_armel.deb
+Maemo-Display-Name: 列车时刻表

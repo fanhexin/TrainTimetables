@@ -4,27 +4,49 @@ import com.nokia.meego 1.0
 PageStackWindow {
     id: appWindow
 
-    initialPage: mainPage
-
-    MainPage {
-        id: mainPage
-    }
-
     ToolBarLayout {
-        id: commonTools
-        visible: true
+        id: common_tools
+        visible: false
+
         ToolIcon {
-            platformIconId: "toolbar-view-menu"
-            anchors.right: (parent === undefined) ? undefined : parent.right
-            onClicked: (myMenu.status === DialogStatus.Closed) ? myMenu.open() : myMenu.close()
+            iconId: "toolbar-back"
+            onClicked: {
+                pageStack.pop();
+            }
+        }
+
+        ToolIcon {
+            iconId: "toolbar-edit"
+            onClicked: {
+                theme.inverted = !theme.inverted;
+            }
         }
     }
 
-    Menu {
-        id: myMenu
-        visualParent: pageStack
-        MenuLayout {
-            MenuItem { text: qsTr("Sample menu item") }
+    initialPage: MainPage{}
+
+    function goto_page(path, param) {
+        if (!arguments.length) {
+            console.log('Error!');
+            return;
         }
+
+        if (arguments.length == 1) {
+            pageStack.push(Qt.resolvedUrl(path));
+        }else if(arguments.length == 2){
+            pageStack.push(Qt.resolvedUrl(path), param);
+        }
+    }
+
+    function get_station(filter, model) {
+        var ret = timetable.getStation(filter);
+        for (var i = 0; i < ret.length; i++) {
+            var title = ret[i].Station;
+            model.append({
+                           title: title,
+                           filter: title
+                       });
+        }
+        return ret.length;
     }
 }
