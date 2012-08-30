@@ -4,55 +4,65 @@ import com.nokia.meego 1.0
 import "../UIConstants.js" as UI
 
 Item {
+    id: item_btn
     width: parent.width
-    height: img.height + 2*UI.NORMAL_MARGIN
+    height: row.height + 20
 
-    property alias text: title.text
-    property alias describe: sub_title.text
-    property alias source: img.source
+    property int titleWeight: Font.Bold
+    property color titleColor: theme.inverted ? "#ffffff" : "#282828"
+
+    property int subtitleWeight: Font.Light
+    property color subtitleColor: theme.inverted ? "#d2d2d2" : "#505050"
+
+    property alias text: mainText.text
+    property alias describe: subText.text
+    property string iconSource
     signal click()
 
+    Row {
+        id: row
+        width: parent.width
+        anchors.verticalCenter: parent.verticalCenter
+        spacing: 18
+
+        Image {
+            anchors.verticalCenter: parent.verticalCenter
+            visible: iconSource ? true : false
+            width: 64
+            height: 64
+            source: iconSource ? iconSource : ""
+        }
+
+        Column {
+            Label {
+                id: mainText
+                font.weight: titleWeight
+                font.pixelSize: 32
+                color: titleColor
+            }
+
+            Label {
+                id: subText
+                font.weight: subtitleWeight
+                color: subtitleColor
+
+                visible: text != ""
+            }
+        }
+    }
+
     Image {
-        id: img
-        width: 80
-        height: 80
-        anchors {
-            top: parent.top
-            left: parent.left
-            margins: UI.NORMAL_MARGIN
-        }
+        source: "image://theme/icon-m-common-drilldown-arrow" + (theme.inverted ? "-inverse" : "")
+        anchors.right: parent.right;
+        anchors.verticalCenter: parent.verticalCenter
     }
 
-    Label {
-        id: title
-        anchors {
-            top: parent.top
-            topMargin: UI.NORMAL_MARGIN
-            left: img.right
-        }
-        font.pixelSize: UI.FONT_SIZE_LARGE
-        font.bold: true
-    }
-
-    Label {
-        id: sub_title
-        anchors {
-            bottom: parent.bottom
-            bottomMargin: UI.NORMAL_MARGIN
-            left: img.right
-        }
-    }
-
-    SeparatorHLine {
-        anchors.top: parent.bottom
-    }
-
-    BorderImage {
-        asynchronous: true
-        anchors.fill: parent
+    Rectangle {
+        id: background
         z: -1
+        anchors.fill: parent
+        color: '#2A8EE0'
         visible: mouse_area.pressed
-        source: (theme.inverted)?"image://theme/meegotouch-list-inverted-background-pressed-center":"image://theme/meegotouch-list-background-pressed-center"
     }
 
     MouseArea {

@@ -39,12 +39,6 @@ Sheet {
                 }
             }
 
-            MsgBar {
-                id: msg_bar
-                width: parent.width
-                text: '共'+ret_cnt+'条结果'
-            }
-
             SeparatorHLine {}
         }
 
@@ -55,6 +49,12 @@ Sheet {
                 left: parent.left
                 right: parent.right
                 bottom: parent.bottom
+            }
+
+            header: MsgBar {
+                id: msg_bar
+                width: parent.width
+                text: '共'+ret_cnt+'条结果'
             }
 
             onModelLoad: {

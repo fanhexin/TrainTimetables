@@ -30,7 +30,7 @@ CommonList {
         id: highlightBar
         Rectangle {
             width: 480; height: 88
-            color: "steelblue"
+            color: "#2A8EE0"
             y: list_view.currentItem.y;
         }
     }
