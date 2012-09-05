@@ -2,7 +2,7 @@
 folder_01.source = qml/TrainTimetables
 folder_01.target = qml
 DEPLOYMENTFOLDERS = folder_01
-QT += sql
+QT += sql network
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
@@ -31,7 +31,9 @@ CONFIG += qdeclarative-boostable
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
-    trainsinfo.cpp
+    trainsinfo.cpp \
+    update.cpp \
+    settings.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -47,8 +49,10 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/changelog
 
 HEADERS += \
-    trainsinfo.h
+    trainsinfo.h \
+    update.h \
+    settings.h
 
 db.files = trains.db
-db.path = /opt/TrainTimetables/data
+db.path = /opt/TrainTimetables/db
 INSTALLS += db

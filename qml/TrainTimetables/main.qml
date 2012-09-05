@@ -1,8 +1,16 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
+import com.nokia.extras 1.0
 
 PageStackWindow {
     id: appWindow
+
+    InfoBanner{
+        id: info_banner
+        topMargin: 40
+        timerShowTime: 2*1000
+        z: 1
+    }
 
     ToolBarLayout {
         id: common_tools
@@ -14,11 +22,10 @@ PageStackWindow {
                 pageStack.pop();
             }
         }
-
         ToolIcon {
             iconId: "toolbar-edit"
             onClicked: {
-                theme.inverted = !theme.inverted;
+                update.get();
             }
         }
     }
@@ -49,4 +56,15 @@ PageStackWindow {
         }
         return ret.length;
     }
+
+    function show_info_bar(text) {
+        info_banner.text = text;
+        info_banner.show();
+    }
+
+    function init() {
+        theme.inverted = (setting.value("dark_theme").toString() == "true")?true:false;
+    }
+
+    Component.onCompleted: init()
 }

@@ -1,25 +1,27 @@
 #include "trainsinfo.h"
 
-TrainsInfo::TrainsInfo(const QString &db_name, QObject *parent) :
-    QObject(parent)
+TrainsInfo::TrainsInfo(QSettings *setting, QObject *parent) :
+    QObject(parent),
+    m_setting(setting)
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
-    m_db.setDatabaseName(db_name);
+    m_db.setDatabaseName(m_setting->value("db_path").toString());
     if ( !m_db.open()) {
         qDebug() << "open error!";
     }
+    qDebug() << m_db.databaseName();
 }
 
 QVariantList TrainsInfo::getTrain(const QString &id)
 {
-    return get("SELECT * FROM Train  WHERE ID LIKE '"+
-               id+"%' COLLATE NOCASE");
+    return get("SELECT * FROM Train WHERE ID='"+
+               id+"' COLLATE NOCASE");
 }
 
 QVariantList TrainsInfo::getTrainsByStation(const QString &station)
 {
-    return get("SELECT a.* FROM TrainList AS a,Train AS b WHERE b.Station LIKE '"+
-               station+"%' AND b.ID=a.ID");
+    return get("SELECT a.* FROM TrainList AS a,Train AS b WHERE b.Station='"+
+               station+"' AND b.ID=a.ID");
 }
 
 QVariantList TrainsInfo::getTrainsBetweenStations(const QString &from, const QString &to)
@@ -71,4 +73,15 @@ QVariantList TrainsInfo::get(const QString &sql)
         obj.clear();
     }
     return list;
+}
+
+void TrainsInfo::startUpdate()
+{
+    m_db.close();
+}
+
+void TrainsInfo::endUpdate()
+{
+    m_db.setDatabaseName(m_setting->value("db_path").toString());
+    m_db.open();
 }

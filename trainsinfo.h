@@ -1,19 +1,16 @@
 #ifndef TRAINSINFO_H
 #define TRAINSINFO_H
 
-#include <QObject>
-#include <QVariantList>
-#include <QVariantMap>
+#include <QtCore>
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlRecord>
-#include <QDebug>
 
 class TrainsInfo : public QObject
 {
     Q_OBJECT
 public:
-    explicit TrainsInfo(const QString &db_name, QObject *parent = 0);
+    explicit TrainsInfo(QSettings *setting, QObject *parent = 0);
     Q_INVOKABLE QVariantList getTrain(const QString &id);
     Q_INVOKABLE QVariantList getTrainsByStation(const QString &station);
     Q_INVOKABLE QVariantList getTrainsBetweenStations(const QString &from, const QString &to);
@@ -25,9 +22,11 @@ public:
 signals:
     
 public slots:
-
+    void startUpdate();
+    void endUpdate();
 private:
     QSqlDatabase m_db;
+    QSettings *m_setting;
 };
 
 #endif // TRAINSINFO_H
