@@ -25,8 +25,6 @@ Page {
             color: UI.HEADER_COLOR
             content: '设置'
         }
-
-        SeparatorHLine{}
     }
 
     Flickable {

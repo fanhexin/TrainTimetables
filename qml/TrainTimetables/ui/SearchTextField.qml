@@ -13,6 +13,10 @@ Item {
         anchors.fill: parent
         platformStyle: TextFieldStyle { paddingRight: clearButton.width }
         inputMethodHints: Qt.ImhNoPredictiveText
+        platformSipAttributes: SipAttributes {
+            actionKeyLabel: '完成'
+            actionKeyHighlighted: true
+        }
     }
 
     Image {
@@ -33,6 +37,10 @@ Item {
             parent.focus = true;
             input.platformCloseSoftwareInputPanel();
         }
+    }
+
+    function text_fild_focus() {
+        input.focus = true;
     }
 }
 

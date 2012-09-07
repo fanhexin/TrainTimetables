@@ -7,8 +7,13 @@ import "./UIConstants.js" as UI
 Page {
     orientationLock: PageOrientation.LockPortrait
     tools: common_tools
-    property alias header_text: header.content
     property string train_id
+    property string train_type
+    property string train_distance
+    property string train_times
+    property string startStation
+    property string endStation
+    property int ret_cnt
 
     Column {
         id: col
@@ -22,10 +27,8 @@ Page {
         Header {
             id: header
             color: UI.HEADER_COLOR
-            content: '车次详细信息'
+            content: train_id +' '+train_type
         }
-
-        SeparatorHLine {}
     }
 
     CommonList {
@@ -37,14 +40,26 @@ Page {
             bottom: parent.bottom
         }
 
+        header: MsgBar {
+            id: msg_bar
+            width: parent.width
+            text: '共'+ret_cnt+'站 '+'行程'+train_distance+'公里 '+'耗时'+train_times
+        }
+
         onModelLoad: {
             var ret = timetable.getTrain(filter);
+            ret_cnt = ret.length;
+            train_type = ret[0].Type;
+            train_distance = ret[ret.length-1].Distance;
+            train_times = ret[ret.length-1].R_Date;
             for (var i = 0; i < ret.length; i++) {
                 list.model.append({
                                       title: ret[i].Station+'  '+ret[i].A_Time+'~'+ret[i].D_Time,
                                       subtitle: '硬座: '+ret[i].P1+'  '+'软座: '+ret[i].P2+'\n'+
                                                 '硬卧: '+ret[i].P3+'  '+'软卧: '+ret[i].P4,
-                                      filter: ret[i].Station
+                                      filter: ret[i].Station,
+                                      highlight: ((startStation&&ret[i].Station.match(startStation) != null)||
+                                                  (endStation&&ret[i].Station.match(endStation) != null))
                                   });
             }
         }

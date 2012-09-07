@@ -58,10 +58,28 @@ Sheet {
             }
 
             onModelLoad: {
-                ret_cnt = get_station(filter, list_view.model);
+                var ret = timetable.getStation(filter);
+                ret_cnt = ret.length;
+                for (var i = 0; i < ret.length; i++) {
+                    var title = ret[i].Station;
+                    list_view.model.append({
+                                               title: title,
+                                               filter: title,
+                                               highlight: false
+                                           });
+                }
             }
+
+//            onClick: {
+//                find_bar.text = list_view.model.get(list_view.currentIndex).title;
+//            }
         }
     }
 
     onAccepted: accept(list_view.model.get(list_view.currentIndex).title)
+    onStatusChanged: {
+        if (status == 1) {
+            find_bar.text_fild_focus();
+        }
+    }
 }

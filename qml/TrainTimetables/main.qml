@@ -22,12 +22,6 @@ PageStackWindow {
                 pageStack.pop();
             }
         }
-        ToolIcon {
-            iconId: "toolbar-edit"
-            onClicked: {
-                update.get();
-            }
-        }
     }
 
     initialPage: MainPage{}
@@ -43,18 +37,6 @@ PageStackWindow {
         }else if(arguments.length == 2){
             pageStack.push(Qt.resolvedUrl(path), param);
         }
-    }
-
-    function get_station(filter, model) {
-        var ret = timetable.getStation(filter);
-        for (var i = 0; i < ret.length; i++) {
-            var title = ret[i].Station;
-            model.append({
-                           title: title,
-                           filter: title
-                       });
-        }
-        return ret.length;
     }
 
     function show_info_bar(text) {

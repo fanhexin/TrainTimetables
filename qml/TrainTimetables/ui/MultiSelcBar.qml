@@ -11,17 +11,16 @@ Item {
     signal clickStartBtn()
     signal clickEndBtn()
     signal clickSearchBtn()
-
     Column {
         anchors.centerIn: parent
         spacing: 20
 
-        SeparatorHLine{}
         Row {
             spacing: 20
             Label {
                 id: start_label
                 text: '出发站：'
+                font.bold: true
             }
 
             TumblerButton {
@@ -37,6 +36,7 @@ Item {
             Label {
                 id: end_label
                 text: '到达站：'
+                font.bold: true
             }
 
             TumblerButton {
@@ -66,7 +66,5 @@ Item {
                 onClicked: clickSearchBtn()
             }
         }
-
-        SeparatorHLine{}
     }
 }

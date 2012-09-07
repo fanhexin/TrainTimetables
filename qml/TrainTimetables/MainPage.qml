@@ -39,14 +39,7 @@ Page {
 
         ItemBtn {
             text: '设置'
-//            describe: '列车时刻表简洁'
             onClick: goto_page("SettingPage.qml")
         }
-    }
-
-    Component.onCompleted: init()
-
-    function init() {
-        theme.inverted = true;
     }
 }

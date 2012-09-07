@@ -20,4 +20,8 @@ Item {
             verticalCenter: parent.verticalCenter
         }
     }
+
+    function text_fild_focus() {
+        text_fild.text_fild_focus();
+    }
 }

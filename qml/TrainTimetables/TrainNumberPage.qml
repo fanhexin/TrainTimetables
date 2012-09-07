@@ -9,7 +9,7 @@ Page {
     tools: common_tools
     property string method: "getTrainInfo"
     property bool bLoadOnInit: false
-    property variant condition
+    property string condition
     property string from
     property string to
     property alias header_text: header.content
@@ -44,7 +44,7 @@ Page {
             }
         }
 
-        SeparatorHLine {}
+        SeparatorHLine {visible: !bLoadOnInit}
     }
 
     CommonList {
@@ -64,24 +64,38 @@ Page {
 
         onModelLoad: {
             var ret = (method == "getTrainsBetweenStations")?timetable[method](from, to):timetable[method](filter);
-
+            ret_cnt = ret.length;
             for (var i = 0; i < ret.length; i++) {
                 var title = ret[i].ID+' '+ret[i].Type;
                 var subtitle = ret[i].startStation+'->'+ret[i].endStation+' '+ret[i].Distance+'公里 '+ret[i].R_Date;
                 train_list.model.append({
                                            title: title,
                                            subtitle: subtitle,
-                                           filter: ret[i].ID
+                                           filter: ret[i].ID,
+                                           highlight: false
                                        });
             }
-            ret_cnt = ret.length;
         }
 
         onItemClicked: {
-            goto_page("TrainDetailPage.qml", {
-                          train_id: filter,
-                          header_text: filter
-                         });
+            var param = {
+                train_id: filter
+            };
+
+            if (condition) {
+                param.startStation = condition;
+            }else if (from) {
+                param.startStation = from;
+                param.endStation = to;
+            }
+
+            goto_page("TrainDetailPage.qml", param);
+        }
+    }
+
+    onStatusChanged: {
+        if (status == PageStatus.Active) {
+            find_bar.text_fild_focus();
         }
     }
 

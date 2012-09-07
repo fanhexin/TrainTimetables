@@ -23,8 +23,6 @@ Page {
             color: UI.HEADER_COLOR
             content: '站站查询'
         }
-
-        SeparatorHLine{}
     }
 
     MultiSelcBar {

@@ -21,8 +21,8 @@ Item {
 
     Row {
         id: row
-        width: parent.width
-        anchors.verticalCenter: parent.verticalCenter
+        width: parent.width - UI.NORMAL_MARGIN
+        anchors.centerIn: parent
         spacing: 18
 
         Image {

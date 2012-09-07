@@ -56,7 +56,16 @@ Page {
         }
 
         onModelLoad: {
-            ret_cnt = get_station(filter, station_list.model);
+            var ret = timetable.getStation(filter);
+            ret_cnt = ret.length;
+            for (var i = 0; i < ret.length; i++) {
+                var title = ret[i].Station;
+                station_list.model.append({
+                                           title: title,
+                                           filter: title,
+                                           highlight: false
+                                       });
+            }
         }
 
         onItemClicked: {
@@ -66,6 +75,12 @@ Page {
                           condition: filter,
                           header_text: '经过'+filter+'的列车'
                       });
+        }
+    }
+
+    onStatusChanged: {
+        if (status == PageStatus.Active) {
+            find_bar.text_fild_focus();
         }
     }
 }
