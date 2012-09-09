@@ -2,9 +2,10 @@ CREATE TABLE 'Train'(
 	'ID' TEXT,
 	'S_No' INTEGER,
 	'Station' TEXT,
+	'Day' INTEGER,
 	'A_Time' TEXT,
 	'D_Time' TEXT,
-	'R_Date' TEXT,
+	'R_Date' INTEGER,
 	'Distance' INTEGER,
 	'P1' TEXT,
 	'P2' TEXT,
@@ -18,7 +19,7 @@ CREATE TABLE 'TrainList'(
 	'Type' TEXT,
 	'startStation' TEXT,
 	'endStation' TEXT,
-	'R_Date' TEXT,
+	'R_Date' INTEGER,
 	'Distance' INTEGER
 );
 

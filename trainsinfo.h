@@ -18,6 +18,7 @@ public:
     Q_INVOKABLE QVariantList getProvince();
     Q_INVOKABLE QVariantList getProvince(const QString &filter);
     Q_INVOKABLE QVariantList getStation(const QString &filter);
+    Q_INVOKABLE QVariantList getTrainStation(const QString &id, const QString &station);
     QVariantList get(const QString &sql);
 signals:
     

@@ -58,11 +58,9 @@ Page {
                 return;
             }
 
-            goto_page("TrainNumberPage.qml", {
-                          method: "getTrainsBetweenStations",
-                          bLoadOnInit: true,
-                          from: multi_selc.startStation,
-                          to: multi_selc.endStation,
+            goto_page("TrainBetweenStationsPage.qml", {
+                          startStation: multi_selc.startStation,
+                          endStation: multi_selc.endStation,
                           header_text: '从'+multi_selc.startStation+'到'+multi_selc.endStation
                       });
         }

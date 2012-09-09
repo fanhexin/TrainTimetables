@@ -10,10 +10,9 @@ Page {
     property string method: "getTrainInfo"
     property bool bLoadOnInit: false
     property string condition
-    property string from
-    property string to
     property alias header_text: header.content
     property int ret_cnt
+    property bool bAutoSoftKeyboard: true
 
     Column {
         id: col
@@ -63,17 +62,23 @@ Page {
         }
 
         onModelLoad: {
-            var ret = (method == "getTrainsBetweenStations")?timetable[method](from, to):timetable[method](filter);
+            var ret = timetable[method](filter);
             ret_cnt = ret.length;
             for (var i = 0; i < ret.length; i++) {
-                var title = ret[i].ID+' '+ret[i].Type;
-                var subtitle = ret[i].startStation+'->'+ret[i].endStation+' '+ret[i].Distance+'公里 '+ret[i].R_Date;
-                train_list.model.append({
-                                           title: title,
-                                           subtitle: subtitle,
-                                           filter: ret[i].ID,
-                                           highlight: false
-                                       });
+                var param = {
+                    title: ret[i].ID+' '+ret[i].Type,
+                    subtitle: [{title:ret[i].startStation+'->'+ret[i].endStation+', '+ret[i].Distance+'km, '+ minute_to_hour(ret[i].R_Date)}],
+                    filter: ret[i].ID
+                };
+                if (ret[i].A_Time) {
+                    param.notice = [
+                                {
+                                    title: filter+': '+(ret[i].A_Time=='始发站'?ret[i].D_Time:ret[i].A_Time),
+                                    cnt: ret[i].Day
+                                }
+                            ];
+                }
+                train_list.model.append(param);
             }
         }
 
@@ -84,18 +89,17 @@ Page {
 
             if (condition) {
                 param.startStation = condition;
-            }else if (from) {
-                param.startStation = from;
-                param.endStation = to;
             }
-
             goto_page("TrainDetailPage.qml", param);
         }
     }
 
     onStatusChanged: {
         if (status == PageStatus.Active) {
-            find_bar.text_fild_focus();
+            if (bAutoSoftKeyboard) {
+                bAutoSoftKeyboard = false;
+                find_bar.text_fild_focus();
+            }
         }
     }
 

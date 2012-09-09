@@ -44,6 +44,13 @@ PageStackWindow {
         info_banner.show();
     }
 
+    function minute_to_hour(minutes) {
+        var ret = Math.floor(minutes/60)+'h';
+        var minute = minutes%60;
+        ret += (minute)?minute+'m':'';
+        return ret;
+    }
+
     function init() {
         theme.inverted = (setting.value("dark_theme").toString() == "true")?true:false;
     }

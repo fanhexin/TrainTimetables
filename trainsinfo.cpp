@@ -20,13 +20,13 @@ QVariantList TrainsInfo::getTrain(const QString &id)
 
 QVariantList TrainsInfo::getTrainsByStation(const QString &station)
 {
-    return get("SELECT a.* FROM TrainList AS a,Train AS b WHERE b.Station='"+
+    return get("SELECT a.*, b.A_Time, b.D_Time, b.Day FROM TrainList a,Train b WHERE b.Station='"+
                station+"' AND b.ID=a.ID");
 }
 
 QVariantList TrainsInfo::getTrainsBetweenStations(const QString &from, const QString &to)
 {
-    return get("select c.* from Train as a,Train as b,TrainList as c where (a.Station LIKE '"+
+    return get("SELECT c.*, a.A_Time sA_Time, a.D_Time sD_Time, a.Day sDay, b.A_Time eA_Time, b.Day eDay, b.R_Date-a.R_Date Interval FROM Train a,Train b,TrainList c WHERE (a.Station LIKE '"+
                from+"%' AND b.Station LIKE '"+
                to+"%') AND a.S_No<b.S_No AND a.ID=b.ID AND c.ID=a.ID");
 }
@@ -55,6 +55,13 @@ QVariantList TrainsInfo::getStation(const QString &filter)
                filter+"%' OR Shortcode LIKE '"+
                filter+"%' OR FullCode LIKE '"+
                filter+"%' COLLATE NOCASE");
+}
+
+QVariantList TrainsInfo::getTrainStation(const QString &id, const QString &station)
+{
+    return get("SELECT * FROM Train WHERE ID='"+
+               id+"' AND Station LIKE '"+
+               station+"%' COLLATE NOCASE");
 }
 
 QVariantList TrainsInfo::get(const QString &sql)

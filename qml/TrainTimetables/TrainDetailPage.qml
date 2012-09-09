@@ -14,6 +14,7 @@ Page {
     property string startStation
     property string endStation
     property int ret_cnt
+    property string betweenStationTime
 
     Column {
         id: col
@@ -43,7 +44,8 @@ Page {
         header: MsgBar {
             id: msg_bar
             width: parent.width
-            text: '共'+ret_cnt+'站 '+'行程'+train_distance+'公里 '+'耗时'+train_times
+            text: '共'+ret_cnt+'站, '+'行程'+train_distance+'km, '+'耗时'+train_times
+            subtitle_text: betweenStationTime?startStation+'-'+endStation+', 耗时'+betweenStationTime:''
         }
 
         onModelLoad: {
@@ -51,15 +53,23 @@ Page {
             ret_cnt = ret.length;
             train_type = ret[0].Type;
             train_distance = ret[ret.length-1].Distance;
-            train_times = ret[ret.length-1].R_Date;
+            train_times = minute_to_hour(ret[ret.length-1].R_Date);
+
             for (var i = 0; i < ret.length; i++) {
+                var title = ret[i].Station+'  '+ret[i].A_Time+'~'+ret[i].D_Time;
+                var subtitle = [
+                            {title:'硬座: '+ret[i].P1+'\n硬卧: '+ret[i].P3},
+                            {title:'软座: '+ret[i].P2+'\n软卧: '+ret[i].P4}
+                        ];
+
+                var highlight = (startStation&&ret[i].Station.match(startStation) != null)||
+                        (endStation&&ret[i].Station.match(endStation) != null);
                 list.model.append({
-                                      title: ret[i].Station+'  '+ret[i].A_Time+'~'+ret[i].D_Time,
-                                      subtitle: '硬座: '+ret[i].P1+'  '+'软座: '+ret[i].P2+'\n'+
-                                                '硬卧: '+ret[i].P3+'  '+'软卧: '+ret[i].P4,
+                                      title: title,
+                                      subtitle: subtitle,
                                       filter: ret[i].Station,
-                                      highlight: ((startStation&&ret[i].Station.match(startStation) != null)||
-                                                  (endStation&&ret[i].Station.match(endStation) != null))
+                                      highlight: highlight,
+                                      cnt: ret[i].Day
                                   });
             }
         }

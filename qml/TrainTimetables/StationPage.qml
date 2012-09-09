@@ -8,6 +8,7 @@ Page {
     orientationLock: PageOrientation.LockPortrait
     tools: common_tools
     property int ret_cnt
+    property bool bAutoSoftKeyboard: true
 
     Column {
         id: col
@@ -62,8 +63,7 @@ Page {
                 var title = ret[i].Station;
                 station_list.model.append({
                                            title: title,
-                                           filter: title,
-                                           highlight: false
+                                           filter: title
                                        });
             }
         }
@@ -80,7 +80,10 @@ Page {
 
     onStatusChanged: {
         if (status == PageStatus.Active) {
-            find_bar.text_fild_focus();
+            if (bAutoSoftKeyboard) {
+                bAutoSoftKeyboard = false;
+                find_bar.text_fild_focus();
+            }
         }
     }
 }
