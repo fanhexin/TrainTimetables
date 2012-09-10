@@ -90,8 +90,8 @@ Page {
                     id: update_btn
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.right
-                    width: 100
-                    text: '更新'
+                    width: 150
+                    text: '检查更新'
                     onClicked: {
                         if (me.state != 'showPBar') {
                             update.check();
@@ -137,6 +137,15 @@ Page {
         }
     }
 
+    Timer {
+        id: timer
+        interval: 20*1000
+        onTriggered: {
+            show_info_bar('连接超时');
+            me.state = 'hideIndicator';
+        }
+    }
+
     states: [
         State {
             name: "showPBar"
@@ -158,7 +167,7 @@ Page {
                     progressBar.value = 0;
                     progressBar.visible = false;
                     database_col.visible = true;
-                    update_btn.text = '更新';
+                    update_btn.text = '检查更新';
                 }
             }
         },
@@ -167,7 +176,9 @@ Page {
 
             StateChangeScript {
                 script: {
+                    timer.start();
                     indicator.visible = true;
+                    update_btn.enabled = false;
                 }
             }
         },
@@ -176,7 +187,9 @@ Page {
 
             StateChangeScript {
                 script: {
+                    timer.stop();
                     indicator.visible = false;
+                    update_btn.enabled = true;
                 }
             }
         }

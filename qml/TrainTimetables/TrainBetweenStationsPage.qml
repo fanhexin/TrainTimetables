@@ -78,6 +78,15 @@ Page {
             };
             goto_page("TrainDetailPage.qml", param);
         }
+
+        Label {
+            visible: !ret_cnt
+            opacity: 0.5
+            anchors.centerIn: parent
+            font.pixelSize: 80
+            font.weight: Font.Light
+            text: '无直达列车'
+        }
     }
 
     Component.onCompleted: init()

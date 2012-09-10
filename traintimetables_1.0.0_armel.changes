@@ -6,18 +6,18 @@ Architecture: armel
 Version: 1.0.0
 Distribution: unstable
 Urgency: low
-Maintainer: unknown <>
+Maintainer: OceanDeep <fanhexin@gmail.com>
 Changed-By: unknown <>
 Description: 
- traintimetables - <insert up to 60 chars description>
+ traintimetables - 中国铁路列车时刻表
 Changes: 
  traintimetables (1.0.0) unstable; urgency=low
  .
    * <Add change description here>
 Checksums-Sha1: 
- b8e3abbf2b3755ed6b0b1eee778e241f96584c72 1310196 traintimetables_1.0.0_armel.deb
+ 1d25ef6782e2d5645b0f224ce82cf5a810d33d8a 1694186 traintimetables_1.0.0_armel.deb
 Checksums-Sha256: 
- 2599de7679c43a5589d5065b2ade8a8fa7e2fb3bf3002612de5acfcb38fa2a97 1310196 traintimetables_1.0.0_armel.deb
+ f7f3f9e74a74ec7b581bca1a56caa23e17350806d06ac2c69cfd97a8fafd928c 1694186 traintimetables_1.0.0_armel.deb
 Files: 
- 146182208182f93dd578b4a3e6aa4051 1310196 user/other optional traintimetables_1.0.0_armel.deb
+ eca284e7080313f11587186670898e74 1694186 user/other optional traintimetables_1.0.0_armel.deb
 Maemo-Display-Name: 列车时刻表

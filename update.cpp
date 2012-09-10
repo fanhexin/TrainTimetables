@@ -13,7 +13,7 @@ void Update::check(void)
     m_check_reply = m_manager.get(QNetworkRequest(QUrl("http://chinese-timetable-db.googlecode.com/svn/trunk/ver.txt")));
 
     connect(m_check_reply, SIGNAL(error(QNetworkReply::NetworkError)),
-            this, SIGNAL(error(QNetworkReply::NetworkError)));
+            this, SIGNAL(error()));
 
     connect(m_check_reply, SIGNAL(finished()), this, SLOT(readVer()));
 }

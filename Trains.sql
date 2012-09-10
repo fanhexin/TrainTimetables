@@ -36,4 +36,22 @@ CREATE TABLE 'Pinyin'(
 CREATE VIEW ProvinceList AS
 SELECT DISTINCT Province,ProPinyin
 FROM Pinyin
-ORDER BY ProPinyin
+ORDER BY ProPinyin;
+
+CREATE VIEW NoStopRouteList AS
+SELECT
+	a.ID,
+	a.Station startStation,
+	b.Station endStation,
+	b.R_Date-a.R_Date R_Date,
+	b.Distance-a.Distance Distance
+FROM
+	Train a,
+	Train b
+WHERE
+	a.ID=b.ID
+	AND a.S_No<b.S_No;
+	
+CREATE INDEX TrainIndex on Train (ID, Station, S_No);
+CREATE INDEX TrainListIndex on TrainList (ID);
+CREATE INDEX PinyinIndex on Pinyin (Shortcode, FullCode);

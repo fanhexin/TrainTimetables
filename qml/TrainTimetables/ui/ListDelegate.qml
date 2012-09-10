@@ -141,6 +141,7 @@ Item {
         Row {
             spacing: UI.SMALL_MARGIN
             Column {
+                spacing: 2
                 Repeater {
                     model: notice.count
                     Row {

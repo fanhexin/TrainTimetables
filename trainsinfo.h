@@ -14,6 +14,7 @@ public:
     Q_INVOKABLE QVariantList getTrain(const QString &id);
     Q_INVOKABLE QVariantList getTrainsByStation(const QString &station);
     Q_INVOKABLE QVariantList getTrainsBetweenStations(const QString &from, const QString &to);
+//    Q_INVOKABLE QVariantList getTrainsBSOneStop(const QString &from, const QString &to);
     Q_INVOKABLE QVariantList getTrainInfo(const QString &id);
     Q_INVOKABLE QVariantList getProvince();
     Q_INVOKABLE QVariantList getProvince(const QString &filter);

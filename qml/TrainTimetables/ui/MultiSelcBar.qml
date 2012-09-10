@@ -17,10 +17,15 @@ Item {
 
         Row {
             spacing: 20
-            Label {
-                id: start_label
-                text: '出发站：'
-                font.bold: true
+            Item {
+                height: start_btn.height
+                width: start_label.width
+                Label {
+                    id: start_label
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: '出发站：'
+                    font.bold: true
+                }
             }
 
             TumblerButton {
@@ -33,10 +38,15 @@ Item {
 
         Row {
             spacing: 20
-            Label {
-                id: end_label
-                text: '到达站：'
-                font.bold: true
+            Item {
+                height: end_btn.height
+                width: end_label.width
+                Label {
+                    id: end_label
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: '到达站：'
+                    font.bold: true
+                }
             }
 
             TumblerButton {
