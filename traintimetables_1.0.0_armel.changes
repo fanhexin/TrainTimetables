@@ -15,9 +15,9 @@ Changes:
  .
    * <Add change description here>
 Checksums-Sha1: 
- 1d25ef6782e2d5645b0f224ce82cf5a810d33d8a 1694186 traintimetables_1.0.0_armel.deb
+ 97a8b195214d444372ddc830cd5b31aeb81eae58 1686556 traintimetables_1.0.0_armel.deb
 Checksums-Sha256: 
- f7f3f9e74a74ec7b581bca1a56caa23e17350806d06ac2c69cfd97a8fafd928c 1694186 traintimetables_1.0.0_armel.deb
+ 20b7d446352feef0f43e87e8b5292486b02912635cc6f915bf67c0a30f4507d6 1686556 traintimetables_1.0.0_armel.deb
 Files: 
- eca284e7080313f11587186670898e74 1694186 user/other optional traintimetables_1.0.0_armel.deb
+ 288bc6b955d9dc37a9a4787dd1bab760 1686556 user/other optional traintimetables_1.0.0_armel.deb
 Maemo-Display-Name: 列车时刻表

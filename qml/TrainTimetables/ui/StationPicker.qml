@@ -28,7 +28,7 @@ Sheet {
 
             SearchBar {
                 id: find_bar
-                placeholderText: '请输入站点名称'
+                placeholderText: '请输入站点名称(支持拼音或首字母)'
                 onTextChanged: {
                     if (find_bar.text)
                         list_view.model_refresh(find_bar.text);
@@ -70,9 +70,15 @@ Sheet {
                 }
             }
 
-//            onClick: {
-//                find_bar.text = list_view.model.get(list_view.currentIndex).title;
-//            }
+            Label {
+                visible: !ret_cnt
+                opacity: 0.5
+                width: parent.width
+                anchors.centerIn: parent
+                font.pixelSize: 65
+                font.weight: Font.Light
+                text: '请在结果中选择'
+            }
         }
     }
 

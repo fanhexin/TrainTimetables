@@ -166,4 +166,5 @@ pip-log.txt
 ## Qt SDK
 ############
 moc
+screenshot
 *.deb

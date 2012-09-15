@@ -58,7 +58,7 @@ QVariantList TrainsInfo::getProvince(const QString &filter)
 
 QVariantList TrainsInfo::getStation(const QString &filter)
 {
-    return get("SELECT Station,Shortcode,FullCode FROM Pinyin WHERE Province LIKE '"+
+    return get("SELECT Station,Shortcode,FullCode FROM Pinyin WHERE Station LIKE '"+
                filter+"%' OR Shortcode LIKE '"+
                filter+"%' OR FullCode LIKE '"+
                filter+"%' COLLATE NOCASE");

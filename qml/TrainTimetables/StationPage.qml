@@ -27,7 +27,7 @@ Page {
 
         SearchBar {
             id: find_bar
-            placeholderText: '请输入站点名称'
+            placeholderText: '请输入站点名称(支持拼音或首字母)'
             onTextChanged: {
                 if (find_bar.text)
                     station_list.model_refresh(find_bar.text);
