@@ -21,12 +21,12 @@ QVariantList TrainsInfo::getTrain(const QString &id)
 QVariantList TrainsInfo::getTrainsByStation(const QString &station)
 {
     return get("SELECT a.*, b.A_Time, b.D_Time, b.Day FROM TrainList a,Train b WHERE b.Station='"+
-               station+"' AND b.ID=a.ID");
+               station+"' AND b.ID=a.ID ORDER BY a.ID");
 }
 
 QVariantList TrainsInfo::getTrainsBetweenStations(const QString &from, const QString &to)
 {
-    return get("SELECT c.*, a.A_Time sA_Time, a.D_Time sD_Time, a.Day sDay, b.A_Time eA_Time, b.Day eDay, b.R_Date-a.R_Date Interval FROM Train a,Train b,TrainList c WHERE (a.Station LIKE '"+
+    return get("SELECT c.*, a.Station sStation, a.A_Time sA_Time, a.D_Time sD_Time, a.Day sDay, b.Station eStation, b.A_Time eA_Time, b.Day eDay, b.R_Date-a.R_Date Interval FROM Train a,Train b,TrainList c WHERE (a.Station LIKE '"+
                from+"%' AND b.Station LIKE '"+
                to+"%') AND a.S_No<b.S_No AND a.ID=b.ID AND c.ID=a.ID ORDER BY Interval");
 }
@@ -41,7 +41,7 @@ QVariantList TrainsInfo::getTrainsBetweenStations(const QString &from, const QSt
 QVariantList TrainsInfo::getTrainInfo(const QString &id)
 {
     return get("SELECT * FROM TrainList WHERE ID LIKE '"+
-               id+"%' COLLATE NOCASE");
+               id+"%' ORDER BY ID COLLATE NOCASE");
 }
 
 QVariantList TrainsInfo::getProvince()
@@ -61,7 +61,7 @@ QVariantList TrainsInfo::getStation(const QString &filter)
     return get("SELECT Station,Shortcode,FullCode FROM Pinyin WHERE Station LIKE '"+
                filter+"%' OR Shortcode LIKE '"+
                filter+"%' OR FullCode LIKE '"+
-               filter+"%' COLLATE NOCASE");
+               filter+"%' ORDER BY Station COLLATE NOCASE");
 }
 
 QVariantList TrainsInfo::getTrainStation(const QString &id, const QString &station)

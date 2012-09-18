@@ -49,7 +49,7 @@ Page {
                 var title = ret[i].ID+' '+ret[i].Type;
                 var subtitle = [{title:ret[i].startStation+'->'+ret[i].endStation+
                         ', '+ret[i].Distance+'km, '+ minute_to_hour(ret[i].R_Date)}];
-                var startTitle = startStation+': '+((ret[i].sA_Time=='始发站')?ret[i].sD_Time:ret[i].sA_Time);
+                var startTitle = ret[i].sStation+': '+((ret[i].sA_Time=='始发站')?ret[i].sD_Time:ret[i].sA_Time);
                 train_list.model.append({
                                            title: title,
                                            subtitle: subtitle,
@@ -60,7 +60,7 @@ Page {
                                                             cnt: ret[i].sDay
                                                         },
                                                         {
-                                                            title: endStation+': '+ret[i].eA_Time,
+                                                            title: ret[i].eStation+': '+ret[i].eA_Time,
                                                             cnt: ret[i].eDay
                                                         }
                                                     ]

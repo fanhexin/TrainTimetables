@@ -1,7 +1,7 @@
 .pragma library
 
 var HEADER_HEIGHT = 70;
-var HEADER_COLOR = '#1080DD';
+var HEADER_COLOR = '#42D809';
 var FONT_SIZE_LARGE = 32;
 var NORMAL_MARGIN = 20;
 var SMALL_MARGIN = 10;
