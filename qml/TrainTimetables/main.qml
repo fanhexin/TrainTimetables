@@ -45,7 +45,8 @@ PageStackWindow {
     }
 
     function minute_to_hour(minutes) {
-        var ret = Math.floor(minutes/60)+'h';
+        var hour = Math.floor(minutes/60);
+        var ret = (hour)?hour+'h':'';
         var minute = minutes%60;
         ret += (minute)?minute+'m':'';
         return ret;

@@ -71,9 +71,10 @@ Page {
                     filter: ret[i].ID
                 };
                 if (ret[i].A_Time) {
+                    param.filter += (',' + ret[i].Station);
                     param.notice = [
                                 {
-                                    title: filter+': '+(ret[i].A_Time=='始发站'?ret[i].D_Time:ret[i].A_Time),
+                                    title: ret[i].Station+': '+(ret[i].A_Time=='始发站'?ret[i].D_Time:ret[i].A_Time),
                                     cnt: ret[i].Day
                                 }
                             ];
@@ -83,12 +84,13 @@ Page {
         }
 
         onItemClicked: {
+            var arr = filter.split(',');
             var param = {
-                train_id: filter
+                train_id: arr[0]
             };
 
             if (condition) {
-                param.startStation = condition;
+                param.startStation = arr[1];
             }
             goto_page("TrainDetailPage.qml", param);
         }

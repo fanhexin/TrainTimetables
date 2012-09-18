@@ -5,6 +5,7 @@ import com.nokia.meego 1.0
 Item {
     property alias placeholderText: input.placeholderText
     property alias text: input.text
+
     width: parent.width
     height: 52
 

@@ -20,8 +20,8 @@ QVariantList TrainsInfo::getTrain(const QString &id)
 
 QVariantList TrainsInfo::getTrainsByStation(const QString &station)
 {
-    return get("SELECT a.*, b.A_Time, b.D_Time, b.Day FROM TrainList a,Train b WHERE b.Station='"+
-               station+"' AND b.ID=a.ID ORDER BY a.ID");
+    return get("SELECT a.*, b.A_Time, b.D_Time, b.Day, b.Station FROM TrainList a,Train b WHERE b.Station LIKE'"+
+               station+"%' AND b.ID=a.ID ORDER BY a.ID");
 }
 
 QVariantList TrainsInfo::getTrainsBetweenStations(const QString &from, const QString &to)

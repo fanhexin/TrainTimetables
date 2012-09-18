@@ -62,8 +62,8 @@ Page {
                             {title:'软座: '+ret[i].P2+'\n软卧: '+ret[i].P4}
                         ];
 
-                var highlight = (startStation&&ret[i].Station.match(startStation) != null)||
-                        (endStation&&ret[i].Station.match(endStation) != null);
+                var highlight = (startStation&&ret[i].Station == startStation)||
+                        (endStation&&ret[i].Station == endStation);
                 list.model.append({
                                       title: title,
                                       subtitle: subtitle,

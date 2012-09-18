@@ -53,7 +53,7 @@ Page {
                 train_list.model.append({
                                            title: title,
                                            subtitle: subtitle,
-                                            filter: ret[i].ID+','+ret[i].Interval,
+                                            filter: ret[i].ID+','+ret[i].Interval+','+ret[i].sStation+','+ret[i].eStation,
                                             notice: [
                                                         {
                                                             title: startTitle,
@@ -72,8 +72,8 @@ Page {
             var arr = filter.split(',');
             var param = {
                 train_id: arr[0],
-                startStation: startStation,
-                endStation: endStation,
+                startStation: arr[2],
+                endStation: arr[3],
                 betweenStationTime: minute_to_hour(parseInt(arr[1]))
             };
             goto_page("TrainDetailPage.qml", param);
