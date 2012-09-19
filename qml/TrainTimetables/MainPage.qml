@@ -45,11 +45,6 @@ Page {
                 text: '设置'
                 onClick: goto_page("SettingPage.qml")
             }
-
-            ItemBtn {
-                text: '关于'
-                onClick: goto_page("AboutPage.qml")
-            }
         }
     }
 }

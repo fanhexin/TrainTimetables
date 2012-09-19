@@ -10,12 +10,15 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QScopedPointer<QApplication> app(createApplication(argc, argv));
 
     QSettings setting("IndependentSoft", "TrainTimetables");
+
     if (!setting.contains("ver")) {
         setting.setValue("ver", 1347274167);
     }
+
     if (!setting.contains("db_path")) {
         setting.setValue("db_path", "/opt/TrainTimetables/db/trains.db");
     }
+
     if (!setting.contains("dark_theme")) {
         setting.setValue("dark_theme", "false");
     }

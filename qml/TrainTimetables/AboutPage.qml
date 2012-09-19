@@ -47,14 +47,7 @@ Page {
             Label {
                 width: parent.width
                 wrapMode: 'WordWrap'
-                text: '"列车时刻表"是用于查询全国列车时刻的N9原生应用，采用离线数据，无需联网。数据库不定期更新，可通过设置界面检测并下载最新离线数据库。如发现数据库信息错误和软件bug或者想要提出功能建议，可在新浪微博<span style="color:steelblue;">@追梦人</span>，或者点击以下邮件地址发送电子邮件。'
-            }
-
-            Label {
-                text: 'Email: <a href="mailto:fanhexin@gmail.com">fanhexin@gmail.com</a>'
-                onLinkActivated: {
-                    Qt.openUrlExternally(link);
-                }
+                text: '"列车时刻表"是用于查询全国列车时刻的N9原生应用，采用离线数据，无需联网。数据库不定期更新，可通过设置界面检测并下载最新离线数据库。如发现数据库信息错误和软件bug或者想要提出功能建议，可通过\"意见反馈\"功能发送电子邮件给我。'
             }
         }
     }

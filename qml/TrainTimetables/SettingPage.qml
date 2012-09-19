@@ -134,6 +134,24 @@ Page {
                     }
                 }
             }
+
+            ItemBtn {
+                text: '意见反馈'
+                width: parent.width
+                user_margin: 0
+                font_pixelSize: 26
+                onClick: {
+                    Qt.openUrlExternally('mailto:fanhexin@gmail.com');
+                }
+            }
+
+            ItemBtn {
+                text: '关于'
+                width: parent.width
+                user_margin: 0
+                font_pixelSize: 26
+                onClick: goto_page("AboutPage.qml")
+            }
         }
     }
 

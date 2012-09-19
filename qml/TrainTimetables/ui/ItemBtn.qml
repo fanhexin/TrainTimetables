@@ -17,11 +17,14 @@ Item {
     property alias text: mainText.text
     property alias describe: subText.text
     property string iconSource
+    property alias font_pixelSize: mainText.font.pixelSize
+    property int user_margin: UI.NORMAL_MARGIN
+
     signal click()
 
     Row {
         id: row
-        width: parent.width - UI.NORMAL_MARGIN
+        width: parent.width - user_margin
         anchors.centerIn: parent
         spacing: 18
 
