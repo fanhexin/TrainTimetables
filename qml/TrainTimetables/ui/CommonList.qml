@@ -6,6 +6,7 @@ ListView {
     id: list_view
     signal modelLoad(string filter)
     signal itemClicked(string filter)
+    signal itemPressAndHold(string filter)
 
     clip: true
     focus: true
@@ -17,6 +18,7 @@ ListView {
             anchors.verticalCenter: parent.verticalCenter
         }
         onClicked: itemClicked(filter)
+        onPressAndHold: itemPressAndHold(filter)
     }
 
     ScrollDecorator {

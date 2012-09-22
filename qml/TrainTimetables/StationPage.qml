@@ -69,9 +69,7 @@ Page {
         }
 
         onItemClicked: {
-            goto_page("TrainNumberPage.qml", {
-                          method: "getTrainsByStation",
-                          bLoadOnInit: true,
+            goto_page("TrainPassStationPage.qml", {
                           condition: filter,
                           header_text: '经过'+filter+'的列车'
                       });

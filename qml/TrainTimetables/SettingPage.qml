@@ -160,6 +160,7 @@ Page {
         interval: 20*1000
         onTriggered: {
             show_info_bar('连接超时');
+            update.cancel();
             me.state = 'hideIndicator';
         }
     }

@@ -8,6 +8,7 @@ Item {
     id: listItem
 
     signal clicked
+    signal pressAndHold
     property alias pressed: mouse_area.pressed
 
     property int titleSize: 26
@@ -187,6 +188,10 @@ Item {
         anchors.fill: parent
         onClicked: {
             listItem.clicked();
+        }
+
+        onPressAndHold: {
+            listItem.pressAndHold();
         }
     }
 }

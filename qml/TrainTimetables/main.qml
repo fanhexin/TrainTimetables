@@ -1,6 +1,8 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import com.nokia.extras 1.0
+import "ui"
+import "./Data.js" as DATA
 
 PageStackWindow {
     id: appWindow
@@ -52,8 +54,22 @@ PageStackWindow {
         return ret;
     }
 
+    function make_filter_reg(selc_indexs) {
+        if (!selc_indexs.length)
+            return null;
+
+        var ret = '^[';
+        var tmp = ['G', 'D', 'Z', 'T', 'K', 'L', 'C', 'Y', '0-9'];
+        for (var i = 0; i < selc_indexs.length; i++) {
+            ret += tmp[selc_indexs[i]];
+        }
+        ret += '].*';
+        return ret;
+    }
+
     function init() {
         theme.inverted = (setting.value("dark_theme").toString() == "true")?true:false;
+        DATA.init();
     }
 
     Component.onCompleted: init()

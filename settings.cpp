@@ -21,3 +21,8 @@ void Settings::clear()
 {
     m_setting->clear();
 }
+
+bool Settings::contains(const QString &key)
+{
+    return m_setting->contains(key);
+}

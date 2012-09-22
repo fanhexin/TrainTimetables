@@ -8,13 +8,14 @@ class Settings : public QObject
     Q_OBJECT
 public:
     explicit Settings(QSettings *setting, QObject *parent = 0);
-    
+    Q_INVOKABLE QVariant value(const QString &key);
+    Q_INVOKABLE void setValue(const QString &key, const QVariant &value);
+    Q_INVOKABLE void clear();
+    Q_INVOKABLE bool contains(const QString &key);
 signals:
     
 public slots:
-    QVariant value(const QString &key);
-    void setValue(const QString &key, const QVariant &value);
-    void clear();
+
 private:
     QSettings *m_setting;
 };

@@ -42,6 +42,11 @@ Page {
             }
 
             ItemBtn {
+                text: '收藏夹'
+                onClick: goto_page("FavoritePage.qml")
+            }
+
+            ItemBtn {
                 text: '设置'
                 onClick: goto_page("SettingPage.qml")
             }

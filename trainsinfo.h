@@ -20,6 +20,7 @@ public:
     Q_INVOKABLE QVariantList getProvince(const QString &filter);
     Q_INVOKABLE QVariantList getStation(const QString &filter);
     Q_INVOKABLE QVariantList getTrainStation(const QString &id, const QString &station);
+    Q_INVOKABLE QVariantList getTrainInfoInSection(const QString &section);
     QVariantList get(const QString &sql);
 signals:
     

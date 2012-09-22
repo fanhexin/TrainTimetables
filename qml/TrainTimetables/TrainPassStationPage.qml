@@ -9,9 +9,17 @@ Page {
     id: me
     orientationLock: PageOrientation.LockPortrait
     tools: common_tools
+
+    property string condition
     property alias header_text: header.content
     property int ret_cnt
-    property bool bPop: true
+
+    FilterDialog {
+        id: filter_dlg
+        onAccepted: {
+            train_list.model_refresh(condition);
+        }
+    }
 
     Column {
         id: col
@@ -22,26 +30,14 @@ Page {
             right: parent.right
         }
 
-        Header {
+        SelectHeader {
             id: header
             color: UI.HEADER_COLOR
             content: '车次查询'
-        }
-
-        SearchBar {
-            id: find_bar
-            placeholderText: '请输入车次号'
-            onTextChanged: {
-                if (find_bar.text)
-                    train_list.model_refresh(find_bar.text);
-                else {
-                    ret_cnt = 0;
-                    train_list.model_clear();
-                }
+            onClickHeader: {
+                filter_dlg.open();
             }
         }
-
-        SeparatorHLine {}
     }
 
     CommonList {
@@ -60,28 +56,43 @@ Page {
         }
 
         onModelLoad: {
-            var ret = timetable.getTrainInfo(filter);
+            var ret = timetable.getTrainsByStation(filter);
             ret_cnt = ret.length;
 
             for (var i = 0; i < ret.length; i++) {
+                var regexp = make_filter_reg(filter_dlg.selectedIndexes);
+                if (regexp && ret[i].ID.match(RegExp(regexp, "g"))) {
+                    ret_cnt--;
+                    continue;
+                }
+
                 var param = {
                     title: ret[i].ID+' '+ret[i].Type,
                     subtitle: [{title:ret[i].startStation+'->'+ret[i].endStation+', '+ret[i].Distance+'km, '+ minute_to_hour(ret[i].R_Date)}],
-                    filter: ret[i].ID
+                    filter: ret[i].ID + ',' + ret[i].Station,
+                    notice: [
+                                {
+                                    title: ret[i].Station+': '+(ret[i].A_Time=='始发站'?ret[i].D_Time:ret[i].A_Time),
+                                    cnt: ret[i].Day
+                                }
+                            ]
                 };
+
                 train_list.model.append(param);
             }
         }
 
         onItemClicked: {
+            var arr = filter.split(',');
             goto_page("TrainDetailPage.qml", {
-                          train_id: filter
+                          train_id: arr[0],
+                          startStation: arr[1]
                       });
         }
 
         onItemPressAndHold: {
             var tmp = Qt.createComponent('./ui/FavoriteMenu.qml');
-            var dlg = tmp.createObject(me, {'filter': filter});
+            var dlg = tmp.createObject(me, {'filter': filter.split(',')[0]});
             dlg.addToFavorite.connect(function(filter) {
                                           DATA.favorite_insert([filter, '']);
                                           show_info_bar('添加收藏');
@@ -90,10 +101,7 @@ Page {
         }
     }
 
-    onStatusChanged: {
-        if (status == PageStatus.Active && bPop) {
-            bPop = false;
-            find_bar.text_fild_focus();
-        }
+    Component.onCompleted: {
+        train_list.model_load(condition);
     }
 }

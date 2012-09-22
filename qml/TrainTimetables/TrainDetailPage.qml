@@ -3,10 +3,9 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import "ui"
 import "./UIConstants.js" as UI
+import "./Data.js" as DATA
 
 Page {
-    orientationLock: PageOrientation.LockPortrait
-    tools: common_tools
     property string train_id
     property string train_type
     property string train_distance
@@ -15,6 +14,38 @@ Page {
     property string endStation
     property int ret_cnt
     property string betweenStationTime
+
+    orientationLock: PageOrientation.LockPortrait
+    tools: ToolBarLayout {
+        id: common_tools
+        visible: false
+
+        ToolIcon {
+            iconId: "toolbar-back"
+            onClicked: {
+                pageStack.pop();
+            }
+        }
+
+        ToolIcon {
+            property bool mark: false
+            iconId: mark?"toolbar-favorite-mark":"toolbar-favorite-unmark"
+            onClicked: {
+                if (!mark) {
+                    DATA.favorite_insert([train_id, '']);
+                    show_info_bar('添加收藏');
+                }else {
+                    DATA.favorite_del(train_id);
+                    show_info_bar('取消收藏');
+                }
+                mark = !mark;
+            }
+
+            Component.onCompleted: {
+                mark = DATA.favorite_isExist(train_id);
+            }
+        }
+    }
 
     Column {
         id: col
@@ -75,9 +106,7 @@ Page {
         }
 
         onItemClicked: {
-            goto_page("TrainNumberPage.qml", {
-                          method: "getTrainsByStation",
-                          bLoadOnInit: true,
+            goto_page("TrainPassStationPage.qml", {
                           condition: filter,
                           header_text: '经过'+filter+'的列车'
                       });

@@ -3,14 +3,23 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import "ui"
 import "./UIConstants.js" as UI
+import "./Data.js" as DATA
 
 Page {
+    id: me
     orientationLock: PageOrientation.LockPortrait
     tools: common_tools
     property alias header_text: header.content
     property string startStation
     property string endStation
     property int ret_cnt
+
+    FilterDialog {
+        id: filter_dlg
+        onAccepted: {
+            train_list.model_refresh();
+        }
+    }
 
     Column {
         id: col
@@ -21,9 +30,12 @@ Page {
             right: parent.right
         }
 
-        Header {
+        SelectHeader {
             id: header
             color: UI.HEADER_COLOR
+            onClickHeader: {
+                filter_dlg.open();
+            }
         }
     }
 
@@ -46,6 +58,12 @@ Page {
             var ret = timetable.getTrainsBetweenStations(startStation, endStation);
             ret_cnt = ret.length;
             for (var i = 0; i < ret.length; i++) {
+                var regexp = make_filter_reg(filter_dlg.selectedIndexes);
+                if (regexp && ret[i].ID.match(RegExp(regexp, "g"))) {
+                    ret_cnt--;
+                    continue;
+                }
+
                 var title = ret[i].ID+' '+ret[i].Type;
                 var subtitle = [{title:ret[i].startStation+'->'+ret[i].endStation+
                         ', '+ret[i].Distance+'km, '+ minute_to_hour(ret[i].R_Date)}];
@@ -77,6 +95,16 @@ Page {
                 betweenStationTime: minute_to_hour(parseInt(arr[1]))
             };
             goto_page("TrainDetailPage.qml", param);
+        }
+
+        onItemPressAndHold: {
+            var tmp = Qt.createComponent('./ui/FavoriteMenu.qml');
+            var dlg = tmp.createObject(me, {'filter': filter.split(',')[0]});
+            dlg.addToFavorite.connect(function(filter) {
+                                          DATA.favorite_insert([filter, '']);
+                                          show_info_bar('添加收藏');
+                                      });
+            dlg.open();
         }
 
         Label {

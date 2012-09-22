@@ -71,6 +71,12 @@ QVariantList TrainsInfo::getTrainStation(const QString &id, const QString &stati
                station+"%' COLLATE NOCASE");
 }
 
+QVariantList TrainsInfo::getTrainInfoInSection(const QString &section)
+{
+    return get("SELECT * FROM TrainList WHERE ID IN ("+
+               section+") ORDER BY ID COLLATE NOCASE");
+}
+
 QVariantList TrainsInfo::get(const QString &sql)
 {
     QVariantList list;
