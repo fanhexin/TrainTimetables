@@ -8,7 +8,7 @@ Page {
     id: me
     orientationLock: PageOrientation.LockPortrait
     tools: common_tools
-
+//在手动调用update的cancel操作时，设置为false则不会弹出出错提示
     property bool bErr: true
 
     Column {
@@ -98,7 +98,7 @@ Page {
                             me.state = "showIndicator";
                         }else{
                             bErr = false;
-                            update.cancel();
+                            update.cancelUpdate();
                         }
                     }
                 }
@@ -160,7 +160,8 @@ Page {
         interval: 20*1000
         onTriggered: {
             show_info_bar('连接超时');
-            update.cancel();
+            bErr = false;
+            update.cancelCheck();
             me.state = 'hideIndicator';
         }
     }
@@ -248,12 +249,16 @@ Page {
         }
 
         onError: {
-            me.state = "hidePBar";
+            if (me.state == "showPBar")
+                me.state = "hidePBar";
+            else if(me.state == "showIndicator")
+                me.state = "hideIndicator";
+
             if (!bErr) {
                 bErr = true;
                 return;
             }
-            show_info_bar('发生错误更新失败');
+            show_info_bar('发生错误');
         }
     }
 }

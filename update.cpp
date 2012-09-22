@@ -5,6 +5,7 @@ Update::Update(QSettings *setting, QObject *parent) :
     m_setting(setting)
 {
     m_bCancelUpdate = false;
+    m_bCancelCheck = false;
     m_ver = m_setting->value("ver").toUInt();
 }
 
@@ -29,10 +30,16 @@ void Update::get(void)
     connect(m_get_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SIGNAL(error()));
 }
 
-void Update::cancel()
+void Update::cancelUpdate()
 {
     m_bCancelUpdate = true;
     m_get_reply->abort();
+}
+
+void Update::cancelCheck()
+{
+    m_bCancelCheck = true;
+    m_check_reply->abort();
 }
 
 QString Update::getFormatVer()
@@ -44,7 +51,15 @@ QString Update::getFormatVer()
 
 void Update::readVer()
 {
+    if (m_bCancelCheck) {
+        m_bCancelCheck = false;
+        return;
+    }
+
     QString data = m_check_reply->readAll();
+    if (!data.size())
+        return;
+
     QStringList list = data.split('\n');
 
     m_ver = list[0].toUInt();
@@ -62,6 +77,10 @@ void Update::readDB()
         return;
     }
 
+    QByteArray data = m_get_reply->readAll();
+    if (!data.size())
+        return;
+
     QDir dir;
     if (!dir.exists("/home/user/.train")) {
         dir.mkdir("/home/user/.train");
@@ -73,7 +92,7 @@ void Update::readDB()
         qDebug() << "QFile open error!";
         return;
     }
-    gz.write(m_get_reply->readAll());
+    gz.write(data);
     gz.close();
 
     emit startUpdate();

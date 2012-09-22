@@ -11,7 +11,8 @@ public:
     explicit Update(QSettings *setting, QObject *parent = 0);
     Q_INVOKABLE void check(void);
     Q_INVOKABLE void get(void);
-    Q_INVOKABLE void cancel();
+    Q_INVOKABLE void cancelCheck();
+    Q_INVOKABLE void cancelUpdate();
     Q_INVOKABLE QString getFormatVer();
 signals:
     void startUpdate();
@@ -26,6 +27,7 @@ public slots:
 private:
     uint m_ver;
     bool m_bCancelUpdate;
+    bool m_bCancelCheck;
     QSettings *m_setting;
     QNetworkReply *m_check_reply;
     QNetworkReply *m_get_reply;
