@@ -12,7 +12,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QSettings setting("IndependentSoft", "TrainTimetables");
 
     if (!setting.contains("ver")) {
-        setting.setValue("ver", 1347274167);
+        setting.setValue("ver", 1348213501);
     }
 
     if (!setting.contains("db_path")) {

@@ -146,11 +146,11 @@ Page {
             }
 
             ItemBtn {
-                text: '关于'
+                text: '帮助'
                 width: parent.width
                 user_margin: 0
                 font_pixelSize: 26
-                onClick: goto_page("AboutPage.qml")
+                onClick: goto_page("HelpPage.qml")
             }
         }
     }

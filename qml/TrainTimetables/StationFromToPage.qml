@@ -35,8 +35,13 @@ Page {
         }
 
         onClickStartBtn: {
+            var param = {};
+            if (multi_selc.startStation != '请选择') {
+                param.station = multi_selc.startStation;
+            }
+
             var tmp = Qt.createComponent("./ui/StationPicker.qml");
-            var sheet = tmp.createObject(me);
+            var sheet = tmp.createObject(me, param);
             sheet.accept.connect(function(filter) {
                                      multi_selc.startStation = filter;
                                  });
@@ -44,8 +49,13 @@ Page {
         }
 
         onClickEndBtn: {
+            var param = {};
+            if (multi_selc.endStation != '请选择') {
+                param.station = multi_selc.endStation;
+            }
+
             var tmp = Qt.createComponent("./ui/StationPicker.qml");
-            var sheet = tmp.createObject(me);
+            var sheet = tmp.createObject(me, param);
             sheet.accept.connect(function(filter) {
                                      multi_selc.endStation = filter;
                                  });
@@ -57,12 +67,20 @@ Page {
             if (multi_selc.startStation == '请选择' || multi_selc.endStation == '请选择') {
                 return;
             }
-
+            setting.setValue('startStation', startStation);
+            setting.setValue('endStation', endStation);
             goto_page("TrainBetweenStationsPage.qml", {
                           startStation: multi_selc.startStation,
                           endStation: multi_selc.endStation,
                           header_text: '从'+multi_selc.startStation+'到'+multi_selc.endStation
                       });
+        }
+
+        Component.onCompleted: {
+            if (setting.contains('startStation'))
+                startStation = setting.value('startStation').toString();
+            if (setting.contains('endStation'))
+                endStation = setting.value('endStation').toString();
         }
     }
 }

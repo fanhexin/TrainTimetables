@@ -5,6 +5,7 @@ import com.nokia.extras 1.0
 
 Sheet {
     property int ret_cnt:0
+    property alias station: find_bar.text
     signal accept(string filter)
 
     acceptButtonText: "确定"
@@ -84,7 +85,8 @@ Sheet {
     onAccepted: {
         var obj = list_view.model.get(list_view.currentIndex);
         var station = (obj)?obj.title:find_bar.text;
-        accept(station);
+        if (station)
+            accept(station);
     }
     onStatusChanged: {
         if (status == 1) {

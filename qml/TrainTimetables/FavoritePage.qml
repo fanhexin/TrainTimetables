@@ -8,6 +8,7 @@ import "./Data.js" as DATA
 Page {
     id: me
     property int ret_cnt
+    property bool bReload: false
 
     orientationLock: PageOrientation.LockPortrait
     tools: ToolBarLayout {
@@ -120,8 +121,15 @@ Page {
             del_menu.open();
         }
     }
+//在查看收藏夹的列车详细信息界面取消收藏后，回退到收藏夹界面需要刷新
+    onStatusChanged: {
+        if (status == PageStatus.Active && bReload) {
+            train_list.model_refresh();
+        }
+    }
 
     Component.onCompleted: {
         train_list.model_load();
+        bReload = true;
     }
 }

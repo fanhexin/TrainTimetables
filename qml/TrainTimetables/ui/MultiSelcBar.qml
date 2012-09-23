@@ -8,9 +8,9 @@ Item {
     property alias startStation: start_btn.text
     property alias endStation: end_btn.text
 
-    signal clickStartBtn()
-    signal clickEndBtn()
-    signal clickSearchBtn()
+    signal clickStartBtn
+    signal clickEndBtn
+    signal clickSearchBtn
     Column {
         anchors.centerIn: parent
         spacing: 20

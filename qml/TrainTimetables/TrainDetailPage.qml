@@ -33,7 +33,7 @@ Page {
             onClicked: {
                 if (!mark) {
                     DATA.favorite_insert([train_id, '']);
-                    show_info_bar('添加收藏');
+                    show_info_bar('收藏成功');
                 }else {
                     DATA.favorite_del(train_id);
                     show_info_bar('取消收藏');

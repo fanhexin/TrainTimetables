@@ -3,7 +3,6 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import "ui"
 import "./UIConstants.js" as UI
-import "./Data.js" as DATA
 
 Page {
     id: me
@@ -93,10 +92,6 @@ Page {
         onItemPressAndHold: {
             var tmp = Qt.createComponent('./ui/FavoriteMenu.qml');
             var dlg = tmp.createObject(me, {'filter': filter.split(',')[0]});
-            dlg.addToFavorite.connect(function(filter) {
-                                          DATA.favorite_insert([filter, '']);
-                                          show_info_bar('添加收藏');
-                                      });
             dlg.open();
         }
     }
