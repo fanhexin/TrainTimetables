@@ -24,6 +24,11 @@ Page {
         ToolIcon {
             iconId: "toolbar-delete"
             onClicked: {
+                if (!train_list.model.count) {
+                    show_info_bar("收藏夹已为空");
+                    return;
+                }
+
                 var tmp = Qt.createComponent('./ui/AlarmDlg.qml');
                 var dlg = tmp.createObject(me, {
                                                title_text: '警告',

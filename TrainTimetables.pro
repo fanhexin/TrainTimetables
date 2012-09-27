@@ -51,7 +51,8 @@ OTHER_FILES += \
 HEADERS += \
     trainsinfo.h \
     update.h \
-    settings.h
+    settings.h \
+    macro.h
 
 db.files = trains.db
 db.path = /opt/TrainTimetables/db

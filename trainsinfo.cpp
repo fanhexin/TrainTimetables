@@ -95,12 +95,12 @@ QVariantList TrainsInfo::get(const QString &sql)
     return list;
 }
 
-void TrainsInfo::startUpdate()
+void TrainsInfo::closeDB()
 {
     m_db.close();
 }
 
-void TrainsInfo::endUpdate()
+void TrainsInfo::changeDB()
 {
     m_db.setDatabaseName(m_setting->value("db_path").toString());
     m_db.open();

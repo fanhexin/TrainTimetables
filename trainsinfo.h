@@ -25,8 +25,8 @@ public:
 signals:
     
 public slots:
-    void startUpdate();
-    void endUpdate();
+    void closeDB();
+    void changeDB();
 private:
     QSqlDatabase m_db;
     QSettings *m_setting;

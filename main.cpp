@@ -4,6 +4,7 @@
 #include "trainsinfo.h"
 #include "update.h"
 #include "settings.h"
+#include "macro.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -12,11 +13,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QSettings setting("IndependentSoft", "TrainTimetables");
 
     if (!setting.contains("ver")) {
-        setting.setValue("ver", 1348213501);
+        setting.setValue("ver", INIT_DB_VER);
     }
 
     if (!setting.contains("db_path")) {
-        setting.setValue("db_path", "/opt/TrainTimetables/db/trains.db");
+        setting.setValue("db_path", INIT_DB_PATH);
     }
 
     if (!setting.contains("dark_theme")) {
@@ -34,8 +35,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     TrainsInfo trains(&setting);
     viewer.rootContext()->setContextProperty("timetable", &trains);
 
-    QObject::connect(&up, SIGNAL(startUpdate()), &trains, SLOT(startUpdate()));
-    QObject::connect(&up, SIGNAL(endUpdate()), &trains, SLOT(endUpdate()));
+    QObject::connect(&up, SIGNAL(startUpdate()), &trains, SLOT(closeDB()));
+    QObject::connect(&up, SIGNAL(endUpdate()), &trains, SLOT(changeDB()));
 
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
     viewer.setMainQmlFile(QLatin1String("qml/TrainTimetables/main.qml"));

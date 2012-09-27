@@ -50,21 +50,55 @@ Page {
             Item {
                 width: parent.width
                 height: database_col.height
-                Column {
-                    id: database_col
-                    Label {
-                        text: '数据库版本'
-                        font.weight: Font.Bold
-                        font.pixelSize: 26
-                        color: theme.inverted ? "#ffffff" : "#282828"
+                Row {
+                    id: database_row
+                    spacing: 10
+                    Column {
+                        id: database_col
+                        Label {
+                            text: '数据库版本'
+                            font.weight: Font.Bold
+                            font.pixelSize: 26
+                            color: theme.inverted ? "#ffffff" : "#282828"
+                        }
+
+                        Label {
+                            id: ver_label
+                            text: update.ver
+                            font.weight: Font.Light
+                            font.pixelSize: 22
+                            color: theme.inverted ? "#d2d2d2" : "#505050"
+                        }
                     }
 
-                    Label {
-                        id: ver_label
-                        text: update.getFormatVer()
-                        font.weight: Font.Light
-                        font.pixelSize: 22
-                        color: theme.inverted ? "#d2d2d2" : "#505050"
+                    Image {
+                        source: "image://theme/"+(theme.inverted ?"icon-m-textinput-combobox-arrow":"icon-m-common-combobox-arrow")
+                    }
+                }
+
+                Rectangle {
+                    id: background
+                    z: -1
+                    anchors.fill: database_row
+                    color: '#2A8EE0'
+                    visible: mouse_area.pressed
+                }
+
+                MouseArea {
+                    id: mouse_area
+                    anchors.fill: database_row
+                    onClicked: {
+                        var tmp = Qt.createComponent('./ui/AlarmDlg.qml');
+                        var dlg = tmp.createObject(me, {
+                                                       title_text: '警告',
+                                                       title_img: "image://theme/icon-l-error",
+                                                       content_text: '是否确定回退数据库到最初版本?'
+                                                   });
+                        dlg.accepted.connect(function() {
+                                                 update.revert();
+                                                 show_info_bar("数据库回退成功");
+                                               });
+                        dlg.open();
                     }
                 }
 
@@ -174,7 +208,7 @@ Page {
                 script: {
                     progressBar.value = 0;
                     progressBar.visible = true;
-                    database_col.visible = false;
+                    database_row.visible = false;
                     update_btn.text = '取消';
                 }
             }
@@ -186,7 +220,7 @@ Page {
                 script: {
                     progressBar.value = 0;
                     progressBar.visible = false;
-                    database_col.visible = true;
+                    database_row.visible = true;
                     update_btn.text = '检查更新';
                 }
             }
@@ -227,9 +261,9 @@ Page {
             me.state = "hideIndicator";
             var tmp = Qt.createComponent('./ui/AlarmDlg.qml');
             var dlg = tmp.createObject(me, {
-                                           title_text: '更新',
+                                           title_text: '数据库更新',
                                            title_img: "image://theme/icon-m-low-power-mode-system-update",
-                                           content_text: '<p>已经有新版数据库了！</p><p>总大小'+size+'是否更新?</p>'
+                                           content_text: '<p>版本: '+ver+'</p><p>大小: '+size+'</p><p>是否更新?</p>'
                                        });
             dlg.accepted.connect(function() {
                                      me.state = "showPBar";
@@ -243,7 +277,6 @@ Page {
             progressBar.value = bytesReceived;
             if (bytesTotal == bytesReceived) {
                 me.state = "hidePBar";
-                ver_label.text = update.getFormatVer();
                 show_info_bar('数据库更新完成');
             }
         }

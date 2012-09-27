@@ -11,7 +11,7 @@ Update::Update(QSettings *setting, QObject *parent) :
 
 void Update::check(void)
 {
-    m_check_reply = m_manager.get(QNetworkRequest(QUrl("http://chinese-timetable-db.googlecode.com/svn/trunk/ver.txt")));
+    m_check_reply = m_manager.get(QNetworkRequest(QUrl(UPDATE_CHECK_URL)));
 
     connect(m_check_reply, SIGNAL(error(QNetworkReply::NetworkError)),
             this, SIGNAL(error()));
@@ -21,7 +21,7 @@ void Update::check(void)
 
 void Update::get(void)
 {
-    m_get_reply = m_manager.get(QNetworkRequest(QUrl("http://chinese-timetable-db.googlecode.com/svn/trunk/trains.db.gz")));
+    m_get_reply = m_manager.get(QNetworkRequest(QUrl(UPDATE_GET_URL)));
     connect(m_get_reply, SIGNAL(finished()), this, SLOT(readDB()));
 
     connect(m_get_reply, SIGNAL(downloadProgress(qint64,qint64)),
@@ -42,7 +42,17 @@ void Update::cancelCheck()
     m_check_reply->abort();
 }
 
-QString Update::getFormatVer()
+void Update::revert()
+{
+    emit startUpdate();
+    m_ver = INIT_DB_VER;
+    m_setting->setValue("ver", INIT_DB_VER);
+    m_setting->setValue("db_path", INIT_DB_PATH);
+    emit verChanged();
+    emit endUpdate();
+}
+
+QString Update::ver() const
 {
     QDateTime time;
     time.setTime_t(m_ver);
@@ -64,7 +74,7 @@ void Update::readVer()
 
     m_ver = list[0].toUInt();
     if (m_ver != m_setting->value("ver").toUInt()) {
-        emit needUpdate(getFormatVer(), list[1]);
+        emit needUpdate(ver(), list[1]);
     }else{
         emit noUpdate();
     }
@@ -82,11 +92,11 @@ void Update::readDB()
         return;
 
     QDir dir;
-    if (!dir.exists("/home/user/.train")) {
-        dir.mkdir("/home/user/.train");
+    if (!dir.exists(DB_SAVE_PATH)) {
+        dir.mkdir(DB_SAVE_PATH);
     }
 
-    QString file_path = "/home/user/.train/trains.db.gz";
+    QString file_path = GZIP_DB_SAVE_PATH;
     QFile gz(file_path);
     if (!gz.open(QIODevice::ReadWrite)) {
         qDebug() << "QFile open error!";
@@ -102,6 +112,7 @@ void Update::readDB()
     gzip->start("gzip", arg);
     connect(gzip, SIGNAL(finished(int)), this, SIGNAL(endUpdate()));
 
-    m_setting->setValue("db_path", "/home/user/.train/trains.db");
+    m_setting->setValue("db_path", AFTER_UPDATE_DB_PATH);
     m_setting->setValue("ver", m_ver);
+    emit verChanged();
 }
