@@ -7,11 +7,30 @@ import "./UIConstants.js" as UI
 Page {
     id: me
     orientationLock: PageOrientation.LockPortrait
-    tools: common_tools
+
     property alias header_text: header.content
     property string startStation
     property string endStation
-    property int ret_cnt
+    property int ret_cnt:0
+
+    tools: ToolBarLayout {
+        id: common_tools
+        visible: false
+
+        ToolIcon {
+            iconId: "toolbar-back"
+            onClicked: {
+                pageStack.pop();
+            }
+        }
+
+//        ToolIcon {
+//            iconId: "toolbar-share"
+//            onClicked: {
+//                Qt.openUrlExternally('mailto:?subject='+header.content+'&body='+format_share_msg());
+//            }
+//        }
+    }
 
     FilterDialog {
         id: filter_dlg
@@ -55,7 +74,7 @@ Page {
 
         onModelLoad: {
             var ret = timetable.getTrainsBetweenStations(startStation, endStation);
-            ret_cnt = ret.length;
+            ret_cnt += ret.length;
             for (var i = 0; i < ret.length; i++) {
                 var regexp = make_filter_reg(filter_dlg.selectedIndexes);
                 if (regexp && ret[i].ID.match(RegExp(regexp, "g"))) {
@@ -70,7 +89,7 @@ Page {
                 train_list.model.append({
                                            title: title,
                                            subtitle: subtitle,
-                                            filter: ret[i].ID+','+ret[i].Interval+','+ret[i].sStation+','+ret[i].eStation,
+                                            filter: ret[i].ID+','+minute_to_hour(parseInt(ret[i].Interval))+','+ret[i].sStation+','+ret[i].eStation,
                                             notice: [
                                                         {
                                                             title: startTitle,
@@ -91,7 +110,7 @@ Page {
                 train_id: arr[0],
                 startStation: arr[2],
                 endStation: arr[3],
-                betweenStationTime: minute_to_hour(parseInt(arr[1]))
+                betweenStationTime: arr[1]
             };
             goto_page("TrainDetailPage.qml", param);
         }
@@ -116,5 +135,19 @@ Page {
 
     function init() {
         train_list.model_load();
+    }
+
+    function format_share_msg() {
+        var line = '共'+ret_cnt+'条结果\n\n';
+
+        for (var i = 0; i < train_list.model.count; i++) {
+            line += (train_list.model.get(i).title +'\n');
+            line += (train_list.model.get(i).subtitle.get(0).title + '\n');
+            line += ('(' + train_list.model.get(i).notice.get(0).cnt + ') ' +
+                     train_list.model.get(i).notice.get(0).title +
+                     '--->' + train_list.model.get(i).filter.split(',')[1] + '\n');
+            line += ('(' + train_list.model.get(i).notice.get(1).cnt + ') ' + train_list.model.get(i).notice.get(1).title + '\n\n');
+        }
+        return line;
     }
 }

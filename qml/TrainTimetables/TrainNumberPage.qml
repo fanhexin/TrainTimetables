@@ -9,7 +9,7 @@ Page {
     orientationLock: PageOrientation.LockPortrait
     tools: common_tools
     property alias header_text: header.content
-    property int ret_cnt
+    property int ret_cnt:0
     property bool bPop: true
 
     Column {
@@ -60,7 +60,7 @@ Page {
 
         onModelLoad: {
             var ret = timetable.getTrainInfo(filter);
-            ret_cnt = ret.length;
+            ret_cnt += ret.length;
 
             for (var i = 0; i < ret.length; i++) {
                 var param = {

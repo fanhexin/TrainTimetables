@@ -7,11 +7,28 @@ import "./UIConstants.js" as UI
 Page {
     id: me
     orientationLock: PageOrientation.LockPortrait
-    tools: common_tools
+    tools: ToolBarLayout {
+        id: common_tools
+        visible: false
+
+        ToolIcon {
+            iconId: "toolbar-back"
+            onClicked: {
+                pageStack.pop();
+            }
+        }
+
+//        ToolIcon {
+//            iconId: "toolbar-share"
+//            onClicked: {
+//                Qt.openUrlExternally('mailto:?subject='+header.content+'&body='+format_share_msg());
+//            }
+//        }
+    }
 
     property string condition
     property alias header_text: header.content
-    property int ret_cnt
+    property int ret_cnt:0
 
     FilterDialog {
         id: filter_dlg
@@ -56,7 +73,7 @@ Page {
 
         onModelLoad: {
             var ret = timetable.getTrainsByStation(filter);
-            ret_cnt = ret.length;
+            ret_cnt += ret.length;
 
             for (var i = 0; i < ret.length; i++) {
                 var regexp = make_filter_reg(filter_dlg.selectedIndexes);
@@ -98,5 +115,16 @@ Page {
 
     Component.onCompleted: {
         train_list.model_load(condition);
+    }
+
+    function format_share_msg() {
+        var line = '共'+ret_cnt+'条结果\n\n';
+
+        for (var i = 0; i < train_list.model.count; i++) {
+            line += (train_list.model.get(i).title +'\n');
+            line += (train_list.model.get(i).subtitle.get(0).title + '\n');
+            line += ('(' + train_list.model.get(i).notice.get(0).cnt + ') ' + train_list.model.get(i).notice.get(0).title + '\n\n');
+        }
+        return line;
     }
 }

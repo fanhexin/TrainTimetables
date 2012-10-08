@@ -83,7 +83,7 @@ Item {
             }
 
             Label {
-                text: minute_to_hour(model.filter.split(',')[1])
+                text: model.filter.split(',')[1]
                 font.weight: listItem.subtitleWeight
                 font.pixelSize: listItem.subtitleSize
                 color: listItem.subtitleColor

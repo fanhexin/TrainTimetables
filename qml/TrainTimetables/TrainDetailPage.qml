@@ -12,7 +12,7 @@ Page {
     property string train_times
     property string startStation
     property string endStation
-    property int ret_cnt
+    property int ret_cnt:0
     property string betweenStationTime
 
     orientationLock: PageOrientation.LockPortrait
@@ -43,6 +43,13 @@ Page {
 
             Component.onCompleted: {
                 mark = DATA.favorite_isExist(train_id);
+            }
+        }
+
+        ToolIcon {
+            iconId: "toolbar-share"
+            onClicked: {
+                Qt.openUrlExternally('mailto:?subject='+header.content+'&body='+format_share_msg());
             }
         }
     }
@@ -81,7 +88,7 @@ Page {
 
         onModelLoad: {
             var ret = timetable.getTrain(filter);
-            ret_cnt = ret.length;
+            ret_cnt += ret.length;
             train_type = ret[0].Type;
             train_distance = ret[ret.length-1].Distance;
             train_times = minute_to_hour(ret[ret.length-1].R_Date);
@@ -117,5 +124,17 @@ Page {
 
     function init() {
         list.model_load(train_id);
+    }
+
+    function format_share_msg() {
+        var line = ('共'+ret_cnt+'站, '+'行程'+train_distance+'km, '+'耗时'+train_times) + '\n' +
+                (betweenStationTime?startStation+'-'+endStation+', 耗时'+betweenStationTime+'\n\n':'\n');
+
+        for (var i = 0; i < list.model.count; i++) {
+            line += ('(' + list.model.get(i).cnt + ') ' + list.model.get(i).title + '\n');
+            line += (list.model.get(i).subtitle.get(0).title + '\n');
+            line += (list.model.get(i).subtitle.get(1).title + '\n\n');
+        }
+        return line;
     }
 }

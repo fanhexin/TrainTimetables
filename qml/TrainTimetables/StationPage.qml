@@ -7,7 +7,7 @@ import "./UIConstants.js" as UI
 Page {
     orientationLock: PageOrientation.LockPortrait
     tools: common_tools
-    property int ret_cnt
+    property int ret_cnt:0
     property bool bAutoSoftKeyboard: true
 
     Column {
@@ -29,10 +29,10 @@ Page {
             id: find_bar
             placeholderText: '请输入站点名称(支持拼音或首字母)'
             onTextChanged: {
+                ret_cnt = 0;
                 if (find_bar.text)
                     station_list.model_refresh(find_bar.text);
                 else {
-                    ret_cnt = 0;
                     station_list.model_clear();
                 }
             }
@@ -58,7 +58,7 @@ Page {
 
         onModelLoad: {
             var ret = timetable.getStation(filter);
-            ret_cnt = ret.length;
+            ret_cnt += ret.length;
             for (var i = 0; i < ret.length; i++) {
                 var title = ret[i].Station;
                 station_list.model.append({
