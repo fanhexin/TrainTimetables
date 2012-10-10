@@ -68,7 +68,7 @@ PageStackWindow {
     }
 
     function init() {
-        theme.inverted = (setting.value("dark_theme").toString() == "true")?true:false;
+        theme.inverted = (setting.value("dark_theme", "false").toString() == "true")?true:false;
         DATA.init();
     }
 

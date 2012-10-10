@@ -5,7 +5,7 @@ TrainsInfo::TrainsInfo(QSettings *setting, QObject *parent) :
     m_setting(setting)
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
-    m_db.setDatabaseName(m_setting->value("db_path").toString());
+    m_db.setDatabaseName(m_setting->value("db_path", INIT_DB_PATH).toString());
     if ( !m_db.open()) {
         qDebug() << "open error!";
     }
@@ -102,6 +102,6 @@ void TrainsInfo::closeDB()
 
 void TrainsInfo::changeDB()
 {
-    m_db.setDatabaseName(m_setting->value("db_path").toString());
+    m_db.setDatabaseName(m_setting->value("db_path", INIT_DB_PATH).toString());
     m_db.open();
 }

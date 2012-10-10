@@ -6,7 +6,7 @@ Update::Update(QSettings *setting, QObject *parent) :
 {
     m_bCancelUpdate = false;
     m_bCancelCheck = false;
-    m_ver = m_setting->value("ver").toUInt();
+    m_ver = m_setting->value("ver", INIT_DB_VER).toUInt();
 }
 
 void Update::check(void)
@@ -73,7 +73,7 @@ void Update::readVer()
     QStringList list = data.split('\n');
 
     m_ver = list[0].toUInt();
-    if (m_ver != m_setting->value("ver").toUInt()) {
+    if (m_ver != m_setting->value("ver", INIT_DB_VER).toUInt()) {
         emit needUpdate(ver(), list[1]);
     }else{
         emit noUpdate();

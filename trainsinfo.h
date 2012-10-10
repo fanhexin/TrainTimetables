@@ -5,6 +5,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlRecord>
+#include "macro.h"
 
 class TrainsInfo : public QObject
 {

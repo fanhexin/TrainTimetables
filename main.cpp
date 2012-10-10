@@ -10,22 +10,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QScopedPointer<QApplication> app(createApplication(argc, argv));
 
-    QSettings setting("IndependentSoft", "TrainTimetables");
-
-    if (!setting.contains("ver")) {
-        setting.setValue("ver", INIT_DB_VER);
-    }
-
-    if (!setting.contains("db_path")) {
-        setting.setValue("db_path", INIT_DB_PATH);
-    }
-
-    if (!setting.contains("dark_theme")) {
-        setting.setValue("dark_theme", "false");
-    }
-
     QmlApplicationViewer viewer;
 
+    QSettings setting("IndependentSoft", "TrainTimetables");
     Settings config(&setting);
     viewer.rootContext()->setContextProperty("setting", &config);
 

@@ -7,9 +7,9 @@ Settings::Settings(QSettings *setting, QObject *parent) :
 
 }
 
-QVariant Settings::value(const QString &key)
+QVariant Settings::value(const QString & key, const QVariant & defaultValue)
 {
-    return m_setting->value(key);
+    return m_setting->value(key, defaultValue);
 }
 
 void Settings::setValue(const QString &key, const QVariant &value)
