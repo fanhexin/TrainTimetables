@@ -209,6 +209,8 @@ Page {
                     progressBar.value = 0;
                     progressBar.visible = true;
                     database_row.visible = false;
+                    background.enabled = false;
+                    mouse_area.enabled = false;
                     update_btn.text = '取消';
                 }
             }
@@ -221,6 +223,8 @@ Page {
                     progressBar.value = 0;
                     progressBar.visible = false;
                     database_row.visible = true;
+                    background.enabled = true;
+                    mouse_area.enabled = true;
                     update_btn.text = '检查更新';
                 }
             }
@@ -291,6 +295,7 @@ Page {
                 bErr = true;
                 return;
             }
+//            console.log(err);
             show_info_bar('发生错误');
         }
     }

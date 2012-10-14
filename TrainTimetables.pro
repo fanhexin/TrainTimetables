@@ -33,7 +33,8 @@ CONFIG += qdeclarative-boostable
 SOURCES += main.cpp \
     trainsinfo.cpp \
     update.cpp \
-    settings.cpp
+    settings.cpp \
+    utility.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -52,7 +53,8 @@ HEADERS += \
     trainsinfo.h \
     update.h \
     settings.h \
-    macro.h
+    macro.h \
+    utility.h
 
 db.files = trains.db
 db.path = /opt/TrainTimetables/db

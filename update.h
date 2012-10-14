@@ -4,6 +4,7 @@
 #include <QtCore>
 #include <QtNetwork>
 #include "macro.h"
+#include "utility.h"
 
 class Update : public QObject
 {
@@ -17,6 +18,7 @@ public:
     Q_INVOKABLE void cancelUpdate();
     Q_INVOKABLE void revert();
     QString ver() const;
+
 signals:
     void startUpdate();
     void endUpdate();
@@ -25,9 +27,12 @@ signals:
     void error();
     void downloadProgress(qint64 bytesReceived, qint64 bytesTotal);
     void verChanged();
+
 public slots:
     void readVer();
     void readDB();
+    void dealErr(QNetworkReply::NetworkError err);
+
 private:
     uint m_ver;
     bool m_bCancelUpdate;

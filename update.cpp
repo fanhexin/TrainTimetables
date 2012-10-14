@@ -13,8 +13,9 @@ void Update::check(void)
 {
     m_check_reply = m_manager.get(QNetworkRequest(QUrl(UPDATE_CHECK_URL)));
 
-    connect(m_check_reply, SIGNAL(error(QNetworkReply::NetworkError)),
-            this, SIGNAL(error()));
+//    connect(m_check_reply, SIGNAL(error(QNetworkReply::NetworkError)),
+//            this, SIGNAL(error()));
+    connect(m_check_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(dealErr(QNetworkReply::NetworkError)));
 
     connect(m_check_reply, SIGNAL(finished()), this, SLOT(readVer()));
 }
@@ -27,7 +28,8 @@ void Update::get(void)
     connect(m_get_reply, SIGNAL(downloadProgress(qint64,qint64)),
             this, SIGNAL(downloadProgress(qint64,qint64)));
 
-    connect(m_get_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SIGNAL(error()));
+//    connect(m_get_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SIGNAL(error()));
+    connect(m_get_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(dealErr(QNetworkReply::NetworkError)));
 }
 
 void Update::cancelUpdate()
@@ -115,4 +117,12 @@ void Update::readDB()
     m_setting->setValue("db_path", AFTER_UPDATE_DB_PATH);
     m_setting->setValue("ver", m_ver);
     emit verChanged();
+}
+
+void Update::dealErr(QNetworkReply::NetworkError err)
+{
+    char buf[50];
+    sprintf(buf, "Netword error code: %d", err);
+    Utility::debug(buf);
+    emit error();
 }
