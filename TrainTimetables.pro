@@ -2,7 +2,7 @@
 folder_01.source = qml/TrainTimetables
 folder_01.target = qml
 DEPLOYMENTFOLDERS = folder_01
-QT += sql network
+QT += sql network dbus
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 

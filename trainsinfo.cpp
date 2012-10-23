@@ -28,7 +28,7 @@ QVariantList TrainsInfo::getTrainsBetweenStations(const QString &from, const QSt
 {
     return get("SELECT c.*, a.Station sStation, a.A_Time sA_Time, a.D_Time sD_Time, a.Day sDay, b.Station eStation, b.A_Time eA_Time, b.Day eDay, b.R_Date-a.R_Date Interval FROM Train a,Train b,TrainList c WHERE (a.Station LIKE '"+
                from+"%' AND b.Station LIKE '"+
-               to+"%') AND a.S_No<b.S_No AND a.ID=b.ID AND c.ID=a.ID ORDER BY Interval");
+               to+"%') AND a.S_No<b.S_No AND a.ID=b.ID AND c.ID=a.ID ORDER BY c.ID");
 }
 
 //QVariantList TrainsInfo::getTrainsBSOneStop(const QString &from, const QString &to)

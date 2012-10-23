@@ -72,6 +72,14 @@ Page {
             text: '共'+ret_cnt+'条结果'
         }
 
+        section.property: "title"
+        section.criteria: ViewSection.FirstCharacter
+        section.delegate: SectionItem {
+            width: parent.width
+            text: section
+        }
+
+
         onModelLoad: {
             var ret = timetable.getTrainsBetweenStations(startStation, endStation);
             ret_cnt += ret.length;
@@ -129,6 +137,10 @@ Page {
             font.weight: Font.Light
             text: '无直达列车'
         }
+    }
+
+    FastScroll {
+        listView: train_list
     }
 
     Component.onCompleted: init()

@@ -126,6 +126,10 @@ Page {
             del_menu.open();
         }
     }
+
+    ScrollDecorator {
+        flickableItem: train_list
+    }
 //在查看收藏夹的列车详细信息界面取消收藏后，回退到收藏夹界面需要刷新
     onStatusChanged: {
         if (status == PageStatus.Active && bReload) {

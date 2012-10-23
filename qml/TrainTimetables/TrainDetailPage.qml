@@ -120,6 +120,10 @@ Page {
         }
     }
 
+    ScrollDecorator {
+        flickableItem: list
+    }
+
     Component.onCompleted: init()
 
     function init() {

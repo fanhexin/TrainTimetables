@@ -71,6 +71,13 @@ Page {
             text: '共'+ret_cnt+'条结果'
         }
 
+        section.property: "title"
+        section.criteria: ViewSection.FirstCharacter
+        section.delegate: SectionItem {
+            width: parent.width
+            text: section
+        }
+
         onModelLoad: {
             var ret = timetable.getTrainsByStation(filter);
             ret_cnt += ret.length;
@@ -111,6 +118,10 @@ Page {
             var dlg = tmp.createObject(me, {'filter': filter.split(',')[0]});
             dlg.open();
         }
+    }
+
+    FastScroll {
+        listView: train_list
     }
 
     Component.onCompleted: {

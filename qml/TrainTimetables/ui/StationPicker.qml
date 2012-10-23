@@ -80,6 +80,10 @@ Sheet {
                 text: '在结果中选择'
             }
         }
+
+        ScrollDecorator {
+            flickableItem: list_view
+        }
     }
 
     onAccepted: {

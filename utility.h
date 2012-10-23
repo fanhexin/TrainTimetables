@@ -5,8 +5,8 @@
 class Utility
 {
 public:
-    Utility();
-    static void debug(char *msg);
+    explicit Utility();
+    static void debug(const char *msg);
 };
 
 #endif // UTILITY_H

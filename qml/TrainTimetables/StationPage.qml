@@ -76,6 +76,10 @@ Page {
         }
     }
 
+    ScrollDecorator {
+        flickableItem: station_list
+    }
+
     onStatusChanged: {
         if (status == PageStatus.Active) {
             if (bAutoSoftKeyboard) {

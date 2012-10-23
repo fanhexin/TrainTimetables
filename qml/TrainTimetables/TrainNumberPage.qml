@@ -85,6 +85,10 @@ Page {
         }
     }
 
+    ScrollDecorator {
+        flickableItem: train_list
+    }
+
     onStatusChanged: {
         if (status == PageStatus.Active && bPop) {
             bPop = false;

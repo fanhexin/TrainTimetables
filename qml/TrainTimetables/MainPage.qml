@@ -43,11 +43,13 @@ Page {
 
             ItemBtn {
                 text: '收藏夹'
+                describe: '查看管理收藏夹中的列车'
                 onClick: goto_page("FavoritePage.qml")
             }
 
             ItemBtn {
                 text: '设置'
+                describe: '进行数据库更新、修改主题等'
                 onClick: goto_page("SettingPage.qml")
             }
         }

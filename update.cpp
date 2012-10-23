@@ -13,8 +13,6 @@ void Update::check(void)
 {
     m_check_reply = m_manager.get(QNetworkRequest(QUrl(UPDATE_CHECK_URL)));
 
-//    connect(m_check_reply, SIGNAL(error(QNetworkReply::NetworkError)),
-//            this, SIGNAL(error()));
     connect(m_check_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(dealErr(QNetworkReply::NetworkError)));
 
     connect(m_check_reply, SIGNAL(finished()), this, SLOT(readVer()));
@@ -25,10 +23,8 @@ void Update::get(void)
     m_get_reply = m_manager.get(QNetworkRequest(QUrl(UPDATE_GET_URL)));
     connect(m_get_reply, SIGNAL(finished()), this, SLOT(readDB()));
 
-    connect(m_get_reply, SIGNAL(downloadProgress(qint64,qint64)),
-            this, SIGNAL(downloadProgress(qint64,qint64)));
+    connect(m_get_reply, SIGNAL(downloadProgress(qint64,qint64)), this, SIGNAL(downloadProgress(qint64,qint64)));
 
-//    connect(m_get_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SIGNAL(error()));
     connect(m_get_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(dealErr(QNetworkReply::NetworkError)));
 }
 

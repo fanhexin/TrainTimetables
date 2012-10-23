@@ -21,10 +21,6 @@ ListView {
         onPressAndHold: itemPressAndHold(filter)
     }
 
-    ScrollDecorator {
-        flickableItem: list_view
-    }
-
     function model_clear() {
         list_view.model.clear();
     }
