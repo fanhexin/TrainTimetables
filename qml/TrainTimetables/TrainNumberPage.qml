@@ -31,6 +31,9 @@ Page {
             id: find_bar
             placeholderText: '请输入车次号'
             onTextChanged: {
+                if (find_bar.text.charAt(0) == '%' || find_bar.text.charAt(0) == '_')
+                    return;
+
                 if (find_bar.text)
                     train_list.model_refresh(find_bar.text);
                 else {

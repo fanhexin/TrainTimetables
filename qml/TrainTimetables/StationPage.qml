@@ -30,6 +30,9 @@ Page {
             placeholderText: '请输入站点名称(支持拼音或首字母)'
             onTextChanged: {
                 ret_cnt = 0;
+                if (find_bar.text.charAt(0) == '%' || find_bar.text.charAt(0) == '_')
+                    return;
+
                 if (find_bar.text)
                     station_list.model_refresh(find_bar.text);
                 else {

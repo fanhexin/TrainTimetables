@@ -32,6 +32,9 @@ Sheet {
                 placeholderText: '请输入站点名称(支持拼音或首字母)'
 
                 onTextChanged: {
+                    if (find_bar.text.charAt(0) == '%' || find_bar.text.charAt(0) == '_')
+                        return;
+
                     if (find_bar.text)
                         list_view.model_refresh(find_bar.text);
                     else {

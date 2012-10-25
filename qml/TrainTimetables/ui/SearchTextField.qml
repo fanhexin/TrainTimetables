@@ -34,10 +34,6 @@ Item {
     }
 
     Keys.onPressed: {
-        if (event.key == Qt.Key_Enter) {
-
-        }
-
         if(event.key == Qt.Key_Enter || event.key == Qt.Key_Return) {
             parent.focus = true;
             input.platformCloseSoftwareInputPanel();

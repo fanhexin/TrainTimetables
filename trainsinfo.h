@@ -12,20 +12,23 @@ class TrainsInfo : public QObject
     Q_OBJECT
 public:
     explicit TrainsInfo(QSettings *setting, QObject *parent = 0);
-    Q_INVOKABLE QVariantList getTrain(const QString &id);
-    Q_INVOKABLE QVariantList getTrainsByStation(const QString &station);
-    Q_INVOKABLE QVariantList getTrainsBetweenStations(const QString &from, const QString &to);
-//    Q_INVOKABLE QVariantList getTrainsBSOneStop(const QString &from, const QString &to);
-    Q_INVOKABLE QVariantList getTrainInfo(const QString &id);
-    Q_INVOKABLE QVariantList getProvince();
-    Q_INVOKABLE QVariantList getProvince(const QString &filter);
-    Q_INVOKABLE QVariantList getStation(const QString &filter);
-    Q_INVOKABLE QVariantList getTrainStation(const QString &id, const QString &station);
-    Q_INVOKABLE QVariantList getTrainInfoInSection(const QString &section);
+    ~TrainsInfo();
+
     QVariantList get(const QString &sql);
 signals:
     
 public slots:
+    QVariantList getTrain(const QString &id);
+    QVariantList getTrainsByStation(const QString &station);
+    QVariantList getTrainsBetweenStations(const QString &from, const QString &to);
+//    QVariantList getTrainsBSOneStop(const QString &from, const QString &to);
+    QVariantList getTrainInfo(const QString &id);
+    QVariantList getProvince();
+    QVariantList getProvince(const QString &filter);
+    QVariantList getStation(const QString &filter);
+    QVariantList getTrainStation(const QString &id, const QString &station);
+    QVariantList getTrainInfoInSection(const QString &section);
+
     void closeDB();
     void changeDB();
 private:

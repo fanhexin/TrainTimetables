@@ -12,6 +12,11 @@ TrainsInfo::TrainsInfo(QSettings *setting, QObject *parent) :
     qDebug() << m_db.databaseName();
 }
 
+TrainsInfo::~TrainsInfo()
+{
+    m_db.close();
+}
+
 QVariantList TrainsInfo::getTrain(const QString &id)
 {
     return get("SELECT * FROM Train WHERE ID='"+
