@@ -71,6 +71,7 @@ void Update::readVer()
     QStringList list = data.split('\n');
 
     m_ver = list[0].toUInt();
+    m_dbFileMd5 = list[2];              //读取第三行的md5值
     if (m_ver != m_setting->value("ver", INIT_DB_VER).toUInt()) {
         emit needUpdate(ver(), list[1]);
     }else{
@@ -86,8 +87,19 @@ void Update::readDB()
     }
 
     QByteArray data = m_get_reply->readAll();
-    if (!data.size())
+    if (!data.size()) {          //todo 应在readver的时候取到当前更新文件大小做对比判断
+        emit error();
         return;
+    }
+
+    //进行md5验证
+    QString md5Str;
+    QByteArray bb = QCryptographicHash::hash(data, QCryptographicHash::Md5);
+    md5Str.append(bb.toHex());
+    if (m_dbFileMd5 != md5Str) {
+        emit error();
+        return;
+    }
 
     QDir dir;
     if (!dir.exists(DB_SAVE_PATH)) {
@@ -97,6 +109,7 @@ void Update::readDB()
     QString file_path = GZIP_DB_SAVE_PATH;
     QFile gz(file_path);
     if (!gz.open(QIODevice::ReadWrite)) {
+        emit error();
         qDebug() << "QFile open error!";
         return;
     }
@@ -118,7 +131,7 @@ void Update::readDB()
 void Update::dealErr(QNetworkReply::NetworkError err)
 {
     char buf[50];
-    sprintf(buf, "Netword error code: %d", err);
+    sprintf(buf, "Network error code: %d", err);
     Utility::debug(buf);
     emit error();
 }

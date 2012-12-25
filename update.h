@@ -37,6 +37,7 @@ private:
     uint m_ver;
     bool m_bCancelUpdate;
     bool m_bCancelCheck;
+    QString m_dbFileMd5;
     QSettings *m_setting;
     QNetworkReply *m_check_reply;
     QNetworkReply *m_get_reply;

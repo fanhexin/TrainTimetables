@@ -9,7 +9,7 @@ TrainsInfo::TrainsInfo(QSettings *setting, QObject *parent) :
     if ( !m_db.open()) {
         qDebug() << "open error!";
     }
-    qDebug() << m_db.databaseName();
+    //qDebug() << m_db.databaseName();
 }
 
 TrainsInfo::~TrainsInfo()
