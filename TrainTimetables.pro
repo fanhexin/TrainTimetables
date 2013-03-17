@@ -59,3 +59,5 @@ HEADERS += \
 db.files = trains.db
 db.path = /opt/TrainTimetables/db
 INSTALLS += db
+
+RESOURCES +=
