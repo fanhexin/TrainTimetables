@@ -82,7 +82,7 @@ Page {
 
         onModelLoad: {
             var ret = timetable.getTrainsBetweenStations(startStation, endStation);
-            ret_cnt += ret.length;
+            ret_cnt = ret.length;
             for (var i = 0; i < ret.length; i++) {
                 var regexp = make_filter_reg(filter_dlg.selectedIndexes);
                 if (regexp && ret[i].ID.match(RegExp(regexp, "g"))) {

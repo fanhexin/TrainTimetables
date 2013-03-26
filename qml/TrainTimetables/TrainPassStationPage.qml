@@ -80,7 +80,7 @@ Page {
 
         onModelLoad: {
             var ret = timetable.getTrainsByStation(filter);
-            ret_cnt += ret.length;
+            ret_cnt = ret.length;
 
             for (var i = 0; i < ret.length; i++) {
                 var regexp = make_filter_reg(filter_dlg.selectedIndexes);

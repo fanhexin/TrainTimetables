@@ -31,13 +31,13 @@ Page {
             id: find_bar
             placeholderText: '请输入车次号'
             onTextChanged: {
+                ret_cnt = 0;
                 if (find_bar.text.charAt(0) == '%' || find_bar.text.charAt(0) == '_')
                     return;
 
                 if (find_bar.text)
                     train_list.model_refresh(find_bar.text);
                 else {
-                    ret_cnt = 0;
                     train_list.model_clear();
                 }
             }
@@ -63,7 +63,7 @@ Page {
 
         onModelLoad: {
             var ret = timetable.getTrainInfo(filter);
-            ret_cnt += ret.length;
+            ret_cnt = ret.length;
 
             for (var i = 0; i < ret.length; i++) {
                 var param = {

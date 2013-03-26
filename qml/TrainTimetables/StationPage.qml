@@ -61,7 +61,7 @@ Page {
 
         onModelLoad: {
             var ret = timetable.getStation(filter);
-            ret_cnt += ret.length;
+            ret_cnt = ret.length;
             for (var i = 0; i < ret.length; i++) {
                 var title = ret[i].Station;
                 station_list.model.append({

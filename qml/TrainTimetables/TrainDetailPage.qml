@@ -88,7 +88,7 @@ Page {
 
         onModelLoad: {
             var ret = timetable.getTrain(filter);
-            ret_cnt += ret.length;
+            ret_cnt = ret.length;
             train_type = ret[0].Type;
             train_distance = ret[ret.length-1].Distance;
             train_times = minute_to_hour(ret[ret.length-1].R_Date);
