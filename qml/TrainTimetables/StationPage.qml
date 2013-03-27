@@ -23,6 +23,7 @@ Page {
             id: header
             color: UI.HEADER_COLOR
             content: '车站查询'
+            icon: "../img/station_header_icon.png"
         }
 
         SearchBar {

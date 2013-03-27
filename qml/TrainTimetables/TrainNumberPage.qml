@@ -25,6 +25,7 @@ Page {
             id: header
             color: UI.HEADER_COLOR
             content: '车次查询'
+            icon: "../img/train_header_icon.png"
         }
 
         SearchBar {

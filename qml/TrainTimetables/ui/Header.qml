@@ -8,15 +8,27 @@ Rectangle {
 
     property alias content: titleTxt.text
     property alias text_anchors: titleTxt.anchors
+    property string icon
 
-    Text {
-        id: titleTxt
+    Row {
+        id: row
         anchors {
             left: parent.left
-            leftMargin: 20
+            leftMargin: 10
             verticalCenter: parent.verticalCenter
         }
-        color: "white"
-        font.pixelSize: UI.FONT_SIZE_LARGE
+        spacing: 10
+
+        Image {
+            asynchronous: true
+            source: icon
+            visible: icon.length != 0
+        }
+
+        Text {
+            id: titleTxt
+            color: "white"
+            font.pixelSize: UI.FONT_SIZE_LARGE
+        }
     }
 }

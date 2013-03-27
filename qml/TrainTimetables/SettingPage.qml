@@ -24,6 +24,7 @@ Page {
             id: header
             color: UI.HEADER_COLOR
             content: '设置'
+            icon: "../img/settings_header_icon.png"
         }
     }
 

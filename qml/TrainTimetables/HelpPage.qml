@@ -12,6 +12,7 @@ Page {
         id: header
         color: UI.HEADER_COLOR
         content: '帮助'
+        icon: "image://theme/icon-m-low-power-mode-invitation-pending"
     }
 
     Flickable {

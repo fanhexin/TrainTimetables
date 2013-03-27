@@ -73,6 +73,7 @@ Page {
             id: header
             color: UI.HEADER_COLOR
             content: '收藏夹'
+            icon: "../img/favorite_header_icon.png"
         }
     }
 

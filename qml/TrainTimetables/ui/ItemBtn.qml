@@ -33,7 +33,7 @@ Item {
             visible: iconSource ? true : false
             width: 64
             height: 64
-            source: iconSource ? iconSource : ""
+            source: iconSource
         }
 
         Column {

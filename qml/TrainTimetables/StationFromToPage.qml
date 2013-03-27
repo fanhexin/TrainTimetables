@@ -22,7 +22,19 @@ Page {
             id: header
             color: UI.HEADER_COLOR
             content: '站站查询'
+            icon: "../img/railroad_header_icon.png"
         }
+    }
+
+    Image {
+        anchors {
+            top: col.bottom
+            topMargin: 20
+            horizontalCenter: parent.horizontalCenter
+        }
+
+        asynchronous: true
+        source: "./img/Train_clip_art_medium.png"
     }
 
     MultiSelcBar {
