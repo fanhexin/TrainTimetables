@@ -20,7 +20,7 @@ void Update::check(void)
 
 void Update::get(void)
 {
-    m_get_reply = m_manager.get(QNetworkRequest(QUrl(UPDATE_GET_URL)));
+    m_get_reply = m_manager.get(QNetworkRequest(QUrl(m_dbFileUrl)));
     connect(m_get_reply, SIGNAL(finished()), this, SLOT(readDB()));
 
     connect(m_get_reply, SIGNAL(downloadProgress(qint64,qint64)), this, SIGNAL(downloadProgress(qint64,qint64)));
@@ -72,6 +72,7 @@ void Update::readVer()
 
     m_ver = list[0].toUInt();
     m_dbFileMd5 = list[2];              //读取第三行的md5值
+    m_dbFileUrl = list[3];              //读取第四行数据库文件下载地址
     if (m_ver != m_setting->value("ver", INIT_DB_VER).toUInt()) {
         emit needUpdate(ver(), list[1]);
     }else{

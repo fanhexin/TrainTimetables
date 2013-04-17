@@ -38,6 +38,7 @@ private:
     bool m_bCancelUpdate;
     bool m_bCancelCheck;
     QString m_dbFileMd5;
+    QString m_dbFileUrl;
     QSettings *m_setting;
     QNetworkReply *m_check_reply;
     QNetworkReply *m_get_reply;

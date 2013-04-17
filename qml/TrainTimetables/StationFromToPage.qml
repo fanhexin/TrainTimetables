@@ -29,7 +29,7 @@ Page {
     Image {
         anchors {
             top: col.bottom
-            topMargin: 20
+            topMargin: 50
             horizontalCenter: parent.horizontalCenter
         }
 
